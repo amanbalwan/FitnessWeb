@@ -1,0 +1,28 @@
+{
+  "name": "fitnessweb",
+  "version": "1.0.0",
+  "description": "Final Project",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amanbalwan/FitnessWeb.git"
+  },
+  "author": "Pranav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amanbalwan/FitnessWeb/issues"
+  },
+  "homepage": "https://github.com/amanbalwan/FitnessWeb#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.0.7",
+    "express-session": "^1.17.3",
+    "mongodb": "^5.3.0"
+  }
+}

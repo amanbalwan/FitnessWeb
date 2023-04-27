@@ -19,6 +19,15 @@ const exportedMethods = {
         if (!isNaN(strVal)) throw `Error: ${strVal} is not a valid value for ${varName} as it only contains digits`;
         return strVal;
       },
+      nameValid(name, varName) {
+        let checkName = /^[a-zA-Z]/; // Regular expression to match valid firstName
+        if (name.length < 2 || name.length > 25)
+            throw `name should be in length between 2 to 25.`;
+        if(!checkName.test(name)){
+            throw `Invalid ${varName} name.`
+        }
+        return name;
+    },
 
       emailValidation(email) {
         const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -55,7 +64,7 @@ const exportedMethods = {
             return phoneNumber;
           },
 
-          dobValidation(dob) {
+        dobValidation(dob) {
             // Parse the input string to a Date object
             const date = new Date(dob);
           
