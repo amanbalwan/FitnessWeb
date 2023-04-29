@@ -22,7 +22,7 @@ const exportedMethods = {
       nameValid(name, varName) {
         let checkName = /^[a-zA-Z]/; // Regular expression to match valid firstName
         if (name.length < 2 || name.length > 25)
-            throw `name should be in length between 2 to 25.`;
+            throw `${varName} name should be in length between 2 to 25.`;
         if(!checkName.test(name)){
             throw `Invalid ${varName} name.`
         }
@@ -50,6 +50,12 @@ const exportedMethods = {
         }
             return password;
         },
+      confirmPaswordValidation(password,confirmPassword){
+        if(password!==confirmPassword){
+          throw 'Password and confirm Password must be same.'
+        }
+        return confirmPassword;
+      },
 
         phoneNumberValidation(phoneNumber) {
           
@@ -58,35 +64,64 @@ const exportedMethods = {
             if (phoneNumber.length !== 10) {
               throw ('Phone number should be 10 digits long');
             }
-            if (!/^[789]\d{9}$/.test(phoneNumber)) {
-              throw ('Phone number should start with 7, 8, or 9');
-            }
+            
             return phoneNumber;
           },
 
-        dobValidation(dob) {
+        ageValidation(age) {
             // Parse the input string to a Date object
-            const date = new Date(dob);
-          
-            // Check if the date is valid
-            if (isNaN(date.getTime())) {
-              throw new Error('Invalid date format. Please enter a valid date in the format YYYY-MM-DD');
-            }
-          
-            // Check if the person is at least 18 years old
-            const today = new Date();
-            const age = today.getFullYear() - date.getFullYear();
-            const monthDiff = today.getMonth() - date.getMonth();
-            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < date.getDate())) {
-              age--;
-            }
+            if (!age) throw `Error: You must supply a age!`;
+            
             if (age < 13) {
-              throw new Error('You must be at least 18 years old to use this service');
+              throw new Error('You must be at least 13 years old to use this service');
             }
           
-            // Date of birth is valid
-            return true;
+            
+            return age;
+          },
+
+          heightValidation(height) {
+            // Check if height is a positive number
+            if (isNaN(height) || height <= 0) {
+              throw new Error('Please enter a valid height in centimeters');
+            }
+          
+            // Height is valid
+            return height;
+          },
+
+          weightValidation(weight) {
+            // Check if weight is a positive number
+            if (isNaN(weight) || weight <= 0) {
+              throw new Error('Please enter a valid weight in kilograms');
+            }
+          
+            // Weight is valid
+            return weight;
+          },
+
+          fitnessLevelValidation(fitnessLevel){
+            if(fitnessLevel === '')
+              throw ('Please select a fitness level.');
+            
+            return fitnessLevel
+            
+          },
+
+          zipCodeValidation(zip) {
+            // Remove any whitespace characters from the ZIP code
+            zip = zip.replace(/\s+/g, '');
+          
+            // Check if ZIP code is a 5-digit number or a 9-digit number with a hyphen
+            if (!/^\d{5}(?:-\d{4})?$/.test(zip)) {
+              throw new Error('Please enter a valid ZIP code');
+            }
+          
+            // ZIP code is valid
+            return zip;
           }
+
+
 
       
 

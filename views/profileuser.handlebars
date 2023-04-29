@@ -1,0 +1,89 @@
+<div>
+  <h2>User Profile</h2>
+  <p>First Name: {{firstName}}</p>
+  <p>Last Name: {{lastName}}</p>
+  <p>Email Address: {{emailAddress}}</p>
+  <p>Phone Number: {{phoneNumber}}</p>
+  {{#if editing}}
+  <form id="profile-form" action="/updateprofile" method="POST">
+    <label for="ageInput">Age:</label>
+    <input type="number" id="ageInput" name="ageInput" value="{{age}}" />
+    <br />
+    <label for="addressLine1Input">Address Line 1:</label>
+    <input type="text" id="addressLine1Input" name="addressLine1Input" value="{{addressLine1}}" />
+    <br />
+    <label for="zipCodeInput">Zip Code:</label>
+    <input type="text" id="zipCodeInput" name="zipCodeInput" value="{{zipCode}}" />
+    <br/>
+    <label for="weightInput">Weight:</label>
+    <input type="number" id="weightInput" name="weightInput" value="{{weight}}" />
+    <br />
+    <label for="heightInput">Height:</label>
+    <input type="number" id="heightInput" name="heightInput" value="{{height}}" />
+    <br />
+    <label for="fitnessLevelInput">Fitness Level:</label>
+    <select id="fitnessLevelInput" name="fitnessLevelInput">
+      <option value="beginner" {{#if fitnessLevelIsBeginner}}selected{{/if}}>Beginner</option>
+      <option value="intermediate" {{#if fitnessLevelIsIntermediate}}selected{{/if}}>Intermediate</option>
+      <option value="advanced" {{#if fitnessLevelIsAdvanced}}selected{{/if}}>Advanced</option>
+    </select>
+    <br />
+    <div class="form-group" id="error-container">
+        <div class="alert alert-danger text-goes-here">
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" id="btn_save">Save</button>
+      </div>
+  </form>
+  {{else}}
+  <p>Age: {{age}}</p>
+  <p>Address Line 1: {{addressLine1}}</p>
+  <p>Zip Code: {{zipCode}}</p>
+  <p>Weight: {{weight}}</p>
+  <p>Height: {{height}}</p>
+  <p>Fitness Level: {{fitnessLevel}}</p>
+  <div id="edit-section">
+    <img src="../public/image/edit_pencil.png" alt="Edit" id="edit-btn">
+  </div>
+  {{/if}}
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const editButton = document.getElementById("btn_edit");
+    const saveButton = document.getElementById("btn_save");
+    const profileForm = document.getElementById("profile-form");
+    const ageInput = document.getElementById("ageInput");
+    const addressLine1Input = document.getElementById("addressLine1Input");
+    const zipCodeInput = document.getElementById("zipCodeInput");
+    const weightInput = document.getElementById("weightInput");
+    const heightInput = document.getElementById("heightInput");
+    const fitnessLevelInput = document.getElementById("fitnessLevelInput");
+    const editBtn = document.getElementById('edit-btn');
+    const editForm = document.getElementById('edit-form');
+    const saveBtn = document.getElementById('save-btn');
+
+    editBtn.addEventListener('click', () => {
+      editBtn.style.display = 'none';
+      editForm.style.display = 'block';
+      ageInput.removeAttribute("readonly");
+      addressLine1Input.removeAttribute("readonly");
+      zipCodeInput.removeAttribute("readonly");
+      weightInput.removeAttribute("readonly");
+      heightInput.removeAttribute("readonly");
+      fitnessLevelInput.removeAttribute("disabled");
+      
+    });
+
+    saveBtn.addEventListener('click', () => {
+      // TODO: Perform validation and save user details
+      // Hide the edit form and show the edit button again
+      editBtn.style.display = 'block';
+      editForm.style.display = 'none';
+      saveBtn.style.display = 'none';
+    });
+  });
+</script>
+
+

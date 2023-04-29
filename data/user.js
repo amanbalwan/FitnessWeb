@@ -5,26 +5,41 @@ import { users } from "../config/mongoCollections.js";
 import validation from "../helpers.js";
 
 const exportedMethods = {
-  async createUser(firstName, lastName, emailAddress, password, address_line1, address_line2, dob, hieght, weight,) {
+  async createUser(firstName, lastName, emailAddress, password, confirmPassword,address_line1, zipcode,age, height, weight,phoneNumber,fitnessLevel) {
 
     
     firstName = validation.stringValidation(firstName, "First Name");
+    firstName=validation.nameValid(firstName,'First Name');
     lastName = validation.stringValidation(lastName, "Last Name");
+    lastName=validation.nameValid(lastName,'Last Name');
     emailAddress = validation.stringValidation(emailAddress, "Email Address");
+    emailAddress=validation.emailValidation(emailAddress);
     emailAddress = emailAddress.toLowerCase();
     password = validation.stringValidation(password, "Password");
-    address_line1=validation.stringValidation(address_line1,'Address line 1');
-    address_line2=validation.stringValidation(address_line2,'Address line 2');
-    dob=validation.dobValidation(dob);
-    firstName=validation.nameValid(firstName,'First Name');
-    lastName=validation.nameValid(lastName,'Last Name');
-    emailAddress=validation.emailValidation(emailAddress);
     password=validation.passwordValidation(password);
+    confirmPassword=validation.stringValidation(confirmPassword)
+    confirmPassword=validation.confirmPaswordValidation(password,confirmPassword)
+    address_line1=validation.stringValidation(address_line1,'Address line 1');
+    zipcode=validation.zipCodeValidation(zipcode);
+    age=validation.ageValidation(age);
+    height=validation.heightValidation(height);
+    weight=validation.weightValidation(weight);
+    phoneNumber=validation.phoneNumberValidation(phoneNumber);
+    fitnessLevel=validation.fitnessLevelValidation(fitnessLevel);
+    
+    
+    
+    
 
     const userCollection = await users();
     const email = await userCollection.findOne({ emailAddress: emailAddress });
+    
     if (email !== null) {
       throw `This Email Address Alredy Exists !`;
+    }
+    const phone=await userCollection.findOne({phoneNumber:phoneNumber});
+    if(phone!==null){
+        throw `This phone number is Alredy Exists!!`
     }
 
     
@@ -32,8 +47,14 @@ const exportedMethods = {
       firstName: firstName,
       lastName: lastName,
       emailAddress: emailAddress,
+      address_line1:address_line1,
+      zipcode:zipcode,
+      phoneNumber:phoneNumber,
+      age:age,
+      height:height,
+      weight:weight,
       password: await bcrypt.hash(password, saltRounds),
-      role: role,
+      fitnessLevel:fitnessLevel,
     };
 
     const insertInfo = await userCollection.insertOne(newUser);
@@ -44,26 +65,13 @@ const exportedMethods = {
   },
 
   async checkUser(emailAddress, password) {
-    emailAddress = validation.string(emailAddress, "Email Address");
+    emailAddress = validation.stringValidation(emailAddress, "Email Address");
     emailAddress = emailAddress.toLowerCase();
-    password = validation.string(password, "Password");
+    emailAddress = validation.emailValidation(emailAddress)
+    password = validation.stringValidation(password, "Password");
+    password = validation.passwordValidation(password)
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailAddress)) {
-      throw `Invalid Email Address`;
-    }
-
-    if (password.length < 8) {
-      throw `Password must be at least 8 characters long`;
-    }
-    if (!/[A-Z]/.test(password)) {
-      throw `Password must contain at least one uppercase character`;
-    }
-    if (!/\d/.test(password)) {
-      throw `Password must contain at least one number`;
-    }
-    if (!/\W/.test(password)) {
-      throw `Password must contain at least one special character`;
-    }
+    
 
     const userCollection = await users();
     const user = await userCollection.findOne({ emailAddress: emailAddress });

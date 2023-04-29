@@ -5,7 +5,7 @@ login form handlebar template
 --}}
 
 
-<form id="login-form" method="POST" action="/login">
+<form id="login-form" method="POST" action="/loginuser">
   <label for="emailInput">Email Address:</label>
   <input
     type="email"
@@ -24,7 +24,7 @@ login form handlebar template
       </div>
   <button type="submit" id="login_btn">Login</button>
 </form>
-<a href="/register" id="a_for_register">Click here to register!</a>
+<a href="/registeruser" id="a_for_register">Click here to register!</a>
 
 {{#if error}}
   <p class="error">{{{error}}}</p>
