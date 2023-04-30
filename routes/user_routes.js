@@ -3,6 +3,7 @@ import { Router } from "express";
 import userData from "../data/user.js";
 import validation from "../helpers.js";
 import middlewarefun from '../middleware.js';
+import { users } from "../config/mongoCollections.js";
 const router = Router();
 
 
@@ -274,7 +275,7 @@ router
 
   router.route('/profileuser').get(async(req,res)=>{
 
-    console.log(req.session.user,'req from profile')
+    
     let firstName = req.session.user.firstName;
     let lastName = req.session.user.lastName;
     let emailAddress = req.session.user.emailAddress;
@@ -285,8 +286,8 @@ router
     let weight=req.session.user.weight;
     let phoneNumber=req.session.user.phoneNumber;
     let fitnessLevel=req.session.user.fitnessLevel;
-
-    console.log('from session ',firstName,lastName,emailAddress,address_line1,zipcode,age,height)
+    
+    
     res.render("profileuser",{
         title:'Profile Page',
         firstName:firstName,
@@ -299,9 +300,144 @@ router
         weight:weight,
         height:height,
         fitnessLevel:fitnessLevel,
+        editing:true
 
     })
   })
+  .post(async(req,res)=>{
+    let firstName = req.session.user.firstName;
+    let lastName = req.session.user.lastName;
+    let emailAddress = req.session.user.emailAddress;
+    let address_line1=req.body.addressLine1Input;
+    let zipcode=req.body.zipCodeInput;
+    let age=req.body.ageInput;
+    let height=req.body.heightInput;
+    let weight=req.body.weightInput;
+    let phoneNumber=req.session.user.phoneNumber;
+    let fitnessLevel=req.body.fitnessLevelInput;
+
+    
+    try {
+
+    
+      age=validation.ageValidation(age);
+      address_line1=validation.stringValidation(address_line1,'Address line 1');
+      zipcode=validation.zipCodeValidation(zipcode);
+      weight=validation.weightValidation(weight);
+      height=validation.heightValidation(height);
+      fitnessLevel=validation.fitnessLevelValidation(fitnessLevel);
+
+      
+      const userCollection = await users();
+      const email = await userCollection.findOne({ emailAddress: emailAddress });
+      
+
+      const updateUser= await userData.updateUser(email._id,address_line1,zipcode,age,height,weight,fitnessLevel)
+
+      console.log(updateUser,'Update');
+
+      if (updateUser._id) {
+        req.session.user = {
+          firstName: updateUser.firstName,
+          lastName: updateUser.lastName,
+          emailAddress: updateUser.emailAddress,
+          address_line1:updateUser.address_line1,
+          zipcode:updateUser.zipcode,
+          phoneNumber:updateUser.phoneNumber,
+          age:updateUser.age,
+          height:updateUser.height,
+          weight:updateUser.weight,
+          fitnessLevel:updateUser.fitnessLevel,
+
+        };
+
+      res.render("profileuser",{
+        title:'Profile Page',
+        firstName:firstName,
+        lastName:lastName,
+        emailAddress:emailAddress,
+        phoneNumber:phoneNumber,
+        age:age,
+        addressLine1:address_line1,
+        zipCode:zipcode,
+        weight:weight,
+        height:height,
+        fitnessLevel:fitnessLevel,
+        editing:false
+        
+
+    })
+  }
+
+    // if (req.body.roleInput !== "admin" || req.body.roleInput !== "user") {
+    //   throw `Invalid role. Only "admin" or "user" allowed.`;
+    // }
+  } catch (e) {
+      
+    return res.status(400).render("profileuser", {
+      title:'Profile Page',
+      firstName:firstName,
+      lastName:lastName,
+      emailAddress:emailAddress,
+      phoneNumber:phoneNumber,
+      age:age,
+      addressLine1:address_line1,
+      zipCode:zipcode,
+      weight:weight,
+      height:height,
+      fitnessLevel:fitnessLevel,
+      error: e,
+
+    });
+  }
+  
+  
+
+  res.status(500).render("error", {
+    title: "Error 500",
+    header: "Error 500",
+    error: "Internal Server Error",
+  });
+  })
+  .delete(async(req,res)=>{
+    let firstName = req.session.user.firstName;
+    let lastName = req.session.user.lastName;
+    let emailAddress = req.session.user.emailAddress;
+    let address_line1=req.session.user.address_line1;
+    let zipcode=req.session.user.zipcode;
+    let age=req.session.user.age;
+    let height=req.session.user.height;
+    let weight=req.session.user.weight;
+    let phoneNumber=req.session.user.phoneNumber;
+    let fitnessLevel=req.session.user.fitnessLevel;
+    try{
+
+      let userCollection = await users();
+      let user= await userCollection.findOne({emailAddress:emailAddress});
+
+      let deletUser= await userData.removeUser(user._id);
+      res.render('deleteuser',{title:"Delte Succesfully"})
+    }
+    catch (e) {
+      
+      return res.status(400).render("profileuser", {
+        title:'Profile Page',
+        firstName:firstName,
+        lastName:lastName,
+        emailAddress:emailAddress,
+        phoneNumber:phoneNumber,
+        age:age,
+        addressLine1:address_line1,
+        zipCode:zipcode,
+        weight:weight,
+        height:height,
+        fitnessLevel:fitnessLevel,
+        error: e,
+  
+      });
+    }
+  })
+;
 
 // router.route('/protected').get(middlewarefun.protectedRoute, async (req, res) => {
 //   console.log(req.session.user,'frompro')

@@ -64,6 +64,45 @@ const exportedMethods = {
     return { insertedUser: true };
   },
 
+  async updateUser(id,address_line1, zipcode,age, height, weight,fitnessLevel){
+    
+    address_line1=validation.stringValidation(address_line1,'Address line 1');
+    zipcode=validation.zipCodeValidation(zipcode);
+    age=validation.ageValidation(age);
+    height=validation.heightValidation(height);
+    weight=validation.weightValidation(weight);
+    fitnessLevel=validation.fitnessLevelValidation(fitnessLevel);
+
+
+    const updatedMember = {
+
+
+      address_line1:address_line1,
+      zipcode:zipcode,
+      age:age,
+      height:height,
+      weight:weight,
+      fitnessLevel:fitnessLevel,
+    };
+
+    
+    const userCollection = await users();
+
+    
+    const updatedInfo = await userCollection.findOneAndUpdate(
+      { _id: id },
+      { $set: updatedMember },
+      { returnDocument: 'after' }
+    );
+    if (updatedInfo.lastErrorObject.n === 0) {
+      throw 'could not update member successfully';
+    }
+    updatedInfo.value._id = updatedInfo.value._id.toString();
+
+    console.log(updatedInfo.value,'Va');
+    return updatedInfo.value;
+  },
+
   async checkUser(emailAddress, password) {
     emailAddress = validation.stringValidation(emailAddress, "Email Address");
     emailAddress = emailAddress.toLowerCase();
@@ -94,5 +133,23 @@ const exportedMethods = {
       return e;
     }
   },
+
+  async removeUser(id){
+    if (!id) throw 'You must provide an id to search for';
+    if (typeof id !== 'string') throw 'Id must be a string';
+    if (id.trim().length === 0)
+      throw 'id cannot be an empty string or just spaces';
+    id = id.trim();
+    if (!ObjectId.isValid(id)) throw 'invalid object ID';
+    const userCollection = await users();
+    const deletionInfo = await userCollection.findOneAndDelete({
+      _id: new ObjectId(id)
+    });
+
+    if (deletionInfo.lastErrorObject.n === 0) {
+      throw `Could not delete dog with id of ${id}`;
+    }
+    return `${deletionInfo.value.name} has been successfully deleted!`;
+  }
 };
 export default exportedMethods;
