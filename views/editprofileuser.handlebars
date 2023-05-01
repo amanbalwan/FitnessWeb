@@ -4,8 +4,8 @@
   <p>Last Name: {{lastName}}</p>
   <p>Email Address: {{emailAddress}}</p>
   <p>Phone Number: {{phoneNumber}}</p>
-{{!--   
-  <form id="profile-form" action="/profileuser" method="get">
+  
+  <form id="profile-form" action="/editprofileuser" method="POST">
     <label for="ageInput">Age:</label>
     <input type="number" id="ageInput" name="ageInput" value="{{age}}" />
     <br />
@@ -37,24 +37,6 @@
       </div>
   </form>
    
-  {{else}} --}}
-  <p>Age: {{age}}</p>
-  <p>Address Line 1: {{addressLine1}}</p>
-  <p>Zip Code: {{zipCode}}</p>
-  <p>Weight: {{weight}}</p>
-  <p>Height: {{height}}</p>
-  <p>Fitness Level: {{fitnessLevel}}</p>
-  <div id="edit-section">
-    <form id="'profile-form"   action="/editprofileuser" method="get" >
-      <button type="edit" id="edit_btn">Edit</button>
-    </form>
-  </div>
-  {{!-- {{/if}}
-
-  <form id="delete-form" action="/profileuser" method="POST">
-    <input type="hidden" name="_method" value="DELETE">
-    <button type="delete" id="btn_save">Delete</button>
-  </form> --}}
 </div>
 
 

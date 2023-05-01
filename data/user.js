@@ -94,6 +94,7 @@ const exportedMethods = {
       { $set: updatedMember },
       { returnDocument: 'after' }
     );
+    
     if (updatedInfo.lastErrorObject.n === 0) {
       throw 'could not update member successfully';
     }

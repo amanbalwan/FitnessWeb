@@ -303,6 +303,39 @@ router
         editing:true
 
     })
+  });
+
+
+  router.route('/editprofileuser').get(async(req,res)=>{
+
+    
+    let firstName = req.session.user.firstName;
+    let lastName = req.session.user.lastName;
+    let emailAddress = req.session.user.emailAddress;
+    let address_line1=req.session.user.address_line1;
+    let zipcode=req.session.user.zipcode;
+    let age=req.session.user.age;
+    let height=req.session.user.height;
+    let weight=req.session.user.weight;
+    let phoneNumber=req.session.user.phoneNumber;
+    let fitnessLevel=req.session.user.fitnessLevel;
+    
+    
+     return res.render("editprofileuser",{
+        title:'Edit Page',
+        firstName:firstName,
+        lastName:lastName,
+        emailAddress:emailAddress,
+        phoneNumber:phoneNumber,
+        age:age,
+        addressLine1:address_line1,
+        zipCode:zipcode,
+        weight:weight,
+        height:height,
+        fitnessLevel:fitnessLevel,
+        editing:true
+
+    })
   })
   .post(async(req,res)=>{
     let firstName = req.session.user.firstName;
@@ -318,8 +351,6 @@ router
 
     
     try {
-
-    
       age=validation.ageValidation(age);
       address_line1=validation.stringValidation(address_line1,'Address line 1');
       zipcode=validation.zipCodeValidation(zipcode);
@@ -351,8 +382,8 @@ router
 
         };
 
-      res.render("profileuser",{
-        title:'Profile Page',
+      return res.render("profileuser",{
+        title:'Edit Page',
         firstName:firstName,
         lastName:lastName,
         emailAddress:emailAddress,
@@ -436,8 +467,7 @@ router
   
       });
     }
-  })
-;
+  });
 
 // router.route('/protected').get(middlewarefun.protectedRoute, async (req, res) => {
 //   console.log(req.session.user,'frompro')
