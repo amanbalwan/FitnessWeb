@@ -111,4 +111,40 @@ div {
   #confirmPasswordInput {
     margin-bottom: 20px;
   }
+
+  /* Header style */
+  header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  header nav ul li {
+    margin: 0 20px;
+  }
+  
+  header nav ul li a {
+    text-decoration: none;
+  }
+
+
+  /* Footer style */
+  footer nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  footer nav ul li {
+    margin: 0 20px;
+  }
+  
+  footer nav ul li a {
+    text-decoration: none;
+    color: #999;
+  }
+  
+  footer nav ul li a:hover {
+    color: #333;
+  }
   

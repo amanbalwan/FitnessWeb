@@ -6,15 +6,20 @@ add.use(myMiddleWare()). you can also just define them in the app.js if you like
 // Auth middleware function
 const exportedMethods={
     authRedirect(req, res, next){
-
+      console.log(req.session.user,'midd');
     if (req.session.user) {
-      if (req.session.user.role === 'admin') {
-        res.redirect('/admin');
-      } else if (req.session.user.role === 'user') {
-        res.redirect('/protected');
+      if (req.session.user.role === 'User') {
+        res.redirect('/profileuser');
+      } else if (req.session.user.role === 'Rest') {
+        res.redirect('/profilerestaurant');
+      } else if (req.session.user.role === 'Fitness') {
+        res.redirect('/profilefitness');
+      }
+      else if (req.session.user.role === 'Diteiation') {
+        res.redirect('/profileDite');
       }
     } else {
-      res.redirect('/loginuser');
+      res.redirect('/homepage');
     }
   },
   

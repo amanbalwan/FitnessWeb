@@ -53,6 +53,7 @@ const exportedMethods = {
       age:age,
       height:height,
       weight:weight,
+      role:'User',
       password: await bcrypt.hash(password, saltRounds),
       fitnessLevel:fitnessLevel,
     };

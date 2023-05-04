@@ -103,6 +103,13 @@ router.route('/').get(middlewarefun.authRedirect,async (req, res) => {
 //     });
 //   });
 
+
+
+router.route('/homepage').get(async (rqq,res)=>
+{
+  res.render('HomePage',{title:'HomePage',header:'homepage'})
+});
+
 router
   .route('/loginuser')
   .get(async (req, res) => {
@@ -143,7 +150,7 @@ router
           height:user.height,
           weight:user.weight,
           fitnessLevel:user.fitnessLevel,
-
+          role:user.role,
         };
 
         // console.log(req.session.user,'Fro login')
@@ -379,7 +386,7 @@ router
           height:updateUser.height,
           weight:updateUser.weight,
           fitnessLevel:updateUser.fitnessLevel,
-
+          role:updateUser.role,
         };
 
       return res.render("profileuser",{
