@@ -1,3 +1,4 @@
+
 <form id="login-form" method="POST" action="/loginuser">
   <label for="emailInput">Email Address:</label>
   <input
@@ -20,12 +21,22 @@
   </div>
   <button type="submit" id="login_btn">Login</button>
 </form>
-<a href="/registeruser" id="a_for_register">Click here to register!</a>
+
 
 {{#if error}}
   <p class="error">{{{error}}}</p>
 {{/if}}
 
+<footer>
+  <nav>
+    <ul>
+      <li><a href="/registeruser" id="a_for_register">Click here to register!</a></li>
+      <li><a href="/loginuser">Login as Reastaurant owner</a></li>
+      <li><a href="/loginuser">Login as Fitness owner</a></li>
+      <li><a href="/loginuser">Login as Diteation</a></li>
+    </ul>
+  </nav>
+</footer>
 <script>
   const passwordInput = document.querySelector('#passwordInput');
   const showPasswordCheckbox = document.querySelector('#show-password-checkbox');
@@ -37,3 +48,5 @@
     }
   });
 </script>
+
+
