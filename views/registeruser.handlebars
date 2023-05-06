@@ -35,10 +35,10 @@ registration handelbars
   <input type="text" id="zipCodeInput" name="zipCodeInput" value="{{zipCodeInput}}" />
   <br/>
   <label for="weightInput">Weight:</label>
-  <input type="number" id="weightInput" name="weightInput" value="{{weightInput}}" />
+  <input type="number" id="weightInput" name="weightInput" placeholder="lb" value="{{weightInput}}" />
   <br />
   <label for="heightInput">Height:</label>
-  <input type="number" id="heightInput" name="heightInput" value="{{heightInput}}" />
+  <input type="number" id="heightInput" name="heightInput" placeholder="cm" value="{{heightInput}}" />
   <br />
   <label for="fitnessLevelInput">Fitness Level:</label>
   <select id="fitnessLevelInput" name="fitnessLevelInput">
@@ -57,8 +57,17 @@ registration handelbars
     
   
 </form>
+<footer>
+  <nav>
+    <ul>
+      <li><a href="/loginuser" id="a_for_login">Already have an account? Click here to log-in</a></li>
+      <li><a href="/restaurant/registerRestaurant">Registe as Reastaurant owner</a></li>
+      <li><a href="/fitness/fitnessRestaurant">Registe as Fitness owner</a></li>
+      <li><a href="/dietician/dieticianRestaurant">Registe as Dietician</a></li>
+    </ul>
+  </nav>
+</footer>
 
-<a href="/loginuser" id="a_for_login">Already have an account? Click here to log-in</a>
 {{#if error}}
 <p class="error">{{{error}}}</p>
 {{/if}}

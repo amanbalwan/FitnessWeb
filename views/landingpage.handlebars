@@ -3,12 +3,11 @@
   <nav>
     <ul>
       <li><a href="/">Home</a></li>
-      <li><a href="/profileuser">Profile</a></li>
-      <li><a href="/logutuser">Logout</a></li>
+      <li><a href="/loginuser">Login User</a></li>
+      <li><a href="/registeruser">Register User</a></li>
     </ul>
   </nav>
 </header>
-
 
 <style>
   body {
@@ -63,19 +62,6 @@
   }
 </style>
 
-
-<div class="user_health">
-    
-        {{#if userData}}
-            <p>Have data {{userData.firstName}}</p>
-            
-            <h2>Your BMI is {{bmi}}</h2>
-            <h3>{{bmiVal}}</h3>
-        {{else}}
-            <p>Not</p>
-        {{/if}}
-        
-</div>
 
 <div class="column">
   <div class="list">

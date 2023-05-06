@@ -9,7 +9,7 @@ const exportedMethods={
       console.log(req.session.user,'midd');
     if (req.session.user) {
       if (req.session.user.role === 'User') {
-        res.redirect('/profileuser');
+        res.redirect(`/landingpage/homepage/${req.session.user.id}`);
       } else if (req.session.user.role === 'Rest') {
         res.redirect('/profilerestaurant');
       } else if (req.session.user.role === 'Fitness') {
@@ -19,7 +19,7 @@ const exportedMethods={
         res.redirect('/profileDite');
       }
     } else {
-      res.redirect('/homepage');
+      res.redirect('/landingpage');
     }
   },
   

@@ -43,7 +43,7 @@ import middlewarefun from './middleware.js';
 
 // Logging Middleware - Logs every request made to the server
 // app.use(middlewarefun.logging);
-
+app.get('/',middlewarefun.authRedirect)
 
 // app.get('/logout', middlewarefun.logoutRoute);
   configRoutes(app);

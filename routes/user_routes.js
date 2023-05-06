@@ -7,11 +7,11 @@ import { users } from "../config/mongoCollections.js";
 const router = Router();
 
 
-router.route('/').get(middlewarefun.authRedirect,async (req, res) => {
+// router.route('/').get(middlewarefun.authRedirect,async (req, res) => {
   
-    return res.json({ error: "YOU SHOULD NOT BE HERE!" });
+//     return res.json({ error: "YOU SHOULD NOT BE HERE!" });
   
-});
+// });
 
 
 //   .route('/register')
@@ -105,10 +105,6 @@ router.route('/').get(middlewarefun.authRedirect,async (req, res) => {
 
 
 
-router.route('/homepage').get(async (rqq,res)=>
-{
-  res.render('HomePage',{title:'HomePage',header:'homepage'})
-});
 
 router
   .route('/loginuser')
@@ -140,6 +136,7 @@ router
       let user = await userData.checkUser(req.body.emailInput,req.body.passwordInput);
       if (user._id) {
         req.session.user = {
+          id:user._id,
           firstName: user.firstName,
           lastName: user.lastName,
           emailAddress: user.emailAddress,
@@ -154,7 +151,8 @@ router
         };
 
         // console.log(req.session.user,'Fro login')
-        res.redirect("/profileuser");
+        // res.redirect(`/homepage/${user._id}`);
+        res.redirect('/');
       } else {
         throw `Either email address or password is invalid`;
       }
@@ -312,6 +310,10 @@ router
     })
   });
 
+  router.route('logout').get(async(req,res)=>{
+
+  });
+
 
   router.route('/editprofileuser').get(async(req,res)=>{
 
@@ -355,15 +357,57 @@ router
     let weight=req.body.weightInput;
     let phoneNumber=req.session.user.phoneNumber;
     let fitnessLevel=req.body.fitnessLevelInput;
-
     
+
     try {
+
+
+
       age=validation.ageValidation(age);
+      console.log(age,'ass')
       address_line1=validation.stringValidation(address_line1,'Address line 1');
       zipcode=validation.zipCodeValidation(zipcode);
       weight=validation.weightValidation(weight);
       height=validation.heightValidation(height);
       fitnessLevel=validation.fitnessLevelValidation(fitnessLevel);
+
+    // if (req.body.roleInput !== "admin" || req.body.roleInput !== "user") {
+    //   throw `Invalid role. Only "admin" or "user" allowed.`;
+    // }
+  } catch (e) {
+      
+    return res.status(400).render("editprofileuser", {
+      title: "editprofileuser",
+      header: "editprofileuser",
+      firstName:firstName,
+      lastName:lastName,
+      emailAddress:emailAddress,
+      addressLine1:address_line1,
+      age:age,
+      weight:weight,
+      height:height,
+      zipCode:zipcode,
+      phoneNumber:phoneNumber,
+      fitnessLevel:fitnessLevel,
+      error: e,
+
+    });
+  }
+
+
+
+
+
+
+    
+    try {
+      // age=validation.ageValidation(age);
+      // console.log(age,'ass')
+      // address_line1=validation.stringValidation(address_line1,'Address line 1');
+      // zipcode=validation.zipCodeValidation(zipcode);
+      // weight=validation.weightValidation(weight);
+      // height=validation.heightValidation(height);
+      // fitnessLevel=validation.fitnessLevelValidation(fitnessLevel);
 
       
       const userCollection = await users();
@@ -371,11 +415,11 @@ router
       
 
       const updateUser= await userData.updateUser(email._id,address_line1,zipcode,age,height,weight,fitnessLevel)
-
       console.log(updateUser,'Update');
 
       if (updateUser._id) {
         req.session.user = {
+          id:updateUser._id,
           firstName: updateUser.firstName,
           lastName: updateUser.lastName,
           emailAddress: updateUser.emailAddress,
@@ -475,6 +519,8 @@ router
       });
     }
   });
+
+  
 
 // router.route('/protected').get(middlewarefun.protectedRoute, async (req, res) => {
 //   console.log(req.session.user,'frompro')
