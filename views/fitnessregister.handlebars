@@ -1,0 +1,55 @@
+{{!--
+
+registration handelbars
+
+--}}
+
+<form id="restauenat-registration-form" action="/fitness/fitnessregister" method="POST">
+  <label for="fitnesCenterName">Fitness Center Name:</label>
+  <input type="text" id="fitnesCenterName" name="fitnesCenterName" value="{{fitnesCenterName}}" />
+  <br />
+  
+  <label for="emailAddress">Email Address:</label>
+  <input type="email" id="emailAddress" name="emailAddress" value="{{emailAddress}}"/>
+  <br />
+  
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" value="{{password}}"/>
+  <br />
+  <label for="confirmPassword">Confirm Password:</label>
+  <input
+    type="password" id="confirmPassword" name="confirmPassword" value="{{confirmPassword}}"/>
+  <br />
+  <label for="phoneNumber">PhoneNumber:</label>
+  <input type="number" id="phoneNumber" name="phoneNumber" value="{{phoneNumber}}" />
+  <br />
+  <label for="address">Address :</label>
+  <input type="text" id="address" name="address" value="{{address}}" />
+  <br />
+  
+  <label for="zipcode">Zip Code:</label>
+  <input type="text" id="zipcode" name="zipcode" value="{{zipcode}}" />
+  <br/>
+  <label for="activites">Activites:</label>
+  <input type="text" id="activites" name="activites" value="{{activities}}" />
+  <br/>
+  <br />
+    <div class="form-group" id="error-container">
+        <div class="alert alert-danger text-goes-here">
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" id="btn_sub">Sign Up</button>
+      </div>
+    
+  
+</form>
+
+<a href="/fitness" id="a_for_login">Already have an account? Click here to log-in</a>
+{{#if error}}
+<p class="error">{{{error}}}</p>
+{{/if}}
+{{!-- {{#if error}} --}}
+  
+
+{{!-- {{/if}} --}}

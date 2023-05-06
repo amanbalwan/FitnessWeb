@@ -13,7 +13,8 @@ const exportedMethods={
       } else if (req.session.user.role === 'Rest') {
         res.redirect('/profilerestaurant');
       } else if (req.session.user.role === 'Fitness') {
-        res.redirect('/profilefitness');
+        console.log('sd');
+        res.redirect('/fitness/fitnessprofile');
       }
       else if (req.session.user.role === 'Diteiation') {
         res.redirect('/profileDite');
