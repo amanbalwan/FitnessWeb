@@ -1,0 +1,52 @@
+
+<form id="restaurant-login-form" method="POST" action="/loginuser">
+  <label for="emailInput">Email Address:</label>
+  <input
+    type="email"
+    name="emailInput"
+    value="{{emailInput}}"
+    id="emailInput"
+  />
+  <br />
+  <label for="passwordInput">Password:</label>
+  <div class="password-input">
+    <input type="password" name="passwordInput" value="{{passwordInput}}" id="passwordInput"  />
+    <input type="checkbox" id="show-password-checkbox" />
+    <label for="show-password-checkbox">Show password</label>
+  </div>
+  <br />
+  <div class="form-group hidden" id="error-container">
+    <div class="alert alert-danger text-goes-here">
+    </div>
+  </div>
+  <button type="submit" id="login_btn">Login</button>
+</form>
+
+
+{{#if error}}
+  <p class="error">{{{error}}}</p>
+{{/if}}
+
+<footer>
+  <nav>
+    <ul>
+      <li><a href="/restaurant/registerRestaurant" id="a_for_register">Click here to register!</a></li>
+      
+      <li><a href="/loginuser">Login as User</a></li>
+      <li><a href="/loginuser">Login as Diteation</a></li>
+    </ul>
+  </nav>
+</footer>
+<script>
+  const passwordInput = document.querySelector('#passwordInput');
+  const showPasswordCheckbox = document.querySelector('#show-password-checkbox');
+  showPasswordCheckbox.addEventListener('change', function() {
+    if (this.checked) {
+      passwordInput.type = 'text';
+    } else {
+      passwordInput.type = 'password';
+    }
+  });
+</script>
+
+

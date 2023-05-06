@@ -1,0 +1,19 @@
+<main>
+    <h2>{{restaueant.name}}</h2>
+    
+    {{#if restaueant.image}}
+    
+        <img class="image" src={{restaueant.image}} alt="{{restaueant.name}}">
+    
+    
+    {{else}}
+    <img class="image" src="../public/image/No_Image_Available.jpg" alt="No Image">
+    
+    {{/if}}
+    <br>
+    <div class="link">
+        <p>{{restaueant.description}}</p>
+        <p>{{restaueant.menu}}</p>
+
+            </div>
+</main>
