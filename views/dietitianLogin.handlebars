@@ -1,8 +1,8 @@
-
-<form id="login-form" method="POST" action="/loginuser">
+<form id="dietitian-login-form" method="POST" action="/dietitian/login">
   <label for="emailInput">Email Address:</label>
   <input
     type="email"
+    required="true"
     name="emailInput"
     value="{{emailInput}}"
     id="emailInput"
@@ -10,44 +10,41 @@
   <br />
   <label for="passwordInput">Password:</label>
   <div class="password-input">
-    <input type="password" name="passwordInput" value="{{passwordInput}}" id="passwordInput"  />
+    <input
+      type="password"
+      name="passwordInput"
+    required="true"
+      value="{{passwordInput}}"
+      id="passwordInput"
+    />
     <input type="checkbox" id="show-password-checkbox" />
     <label for="show-password-checkbox">Show password</label>
   </div>
   <br />
-  <div class="form-group hidden" id="error-container">
-    <div class="alert alert-danger text-goes-here">
+  {{#if error}}
+    <div class="form-group" id="error-container">
+      <div class="alert alert-danger text-goes-here">
+        <p class="error">{{{error}}}</p>
+      </div>
     </div>
-  </div>
+  {{/if}}
   <button type="submit" id="login_btn">Login</button>
 </form>
-
-
-{{#if error}}
-  <p class="error">{{{error}}}</p>
-{{/if}}
 
 <footer>
   <nav>
     <ul>
-      <li><a href="/registeruser" id="a_for_register">Click here to register!</a></li>
+      <li><a href="/dietitian/register" id="a_for_register">Click here to
+          register dietitian</a></li>
       <li><a href="/restaurant">Login as Reastaurant owner</a></li>
       <li><a href="/loginuser">Login as Fitness owner</a></li>
-      <li><a href="/dietitian/login">Login as Dietitian</a></li>
-
+      <li><a href="/loginuser">Login as User</a></li>
     </ul>
   </nav>
 </footer>
 <script>
   const passwordInput = document.querySelector('#passwordInput');
   const showPasswordCheckbox = document.querySelector('#show-password-checkbox');
-  showPasswordCheckbox.addEventListener('change', function() {
-    if (this.checked) {
-      passwordInput.type = 'text';
-    } else {
-      passwordInput.type = 'password';
-    }
-  });
+  showPasswordCheckbox.addEventListener('change', function() { if (this.checked)
+  { passwordInput.type = 'text'; } else { passwordInput.type = 'password'; } });
 </script>
-
-

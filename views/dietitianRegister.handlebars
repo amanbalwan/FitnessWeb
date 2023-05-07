@@ -1,0 +1,141 @@
+{{!
+
+registration handelbars
+
+}}
+
+<form
+  id="dietitian-registration-form"
+  action="/dietitian/register"
+  method="POST"
+>
+  <label for="firstNameInput">First Name:</label>
+  <input
+    type="text"
+    id="firstNameInput"
+    name="firstNameInput"
+    value="{{firstNameInput}}"
+    required="true"
+  />
+  <br />
+  <label for="lastNameInput">Last Name:</label>
+  <input
+    type="text"
+    id="lastNameInput"
+    name="lastNameInput"
+    value="{{lastNameInput}}"
+    required="true"
+  />
+  <br />
+  <label for="emailInput">Email Address:</label>
+  <input
+    type="email"
+    id="emailInput"
+    name="emailInput"
+    value="{{emailInput}}"
+    required="true"
+  />
+  <br />
+  <label for="phoneNumberInput">PhoneNumber:</label>
+  <input
+    type="number"
+    id="phoneNumberInput"
+    name="phoneNumberInput"
+    value="{{phoneNumberInput}}"
+    min="0"
+    required="true"
+  />
+  <br />
+  <label for="passwordInput">Password:</label>
+  <input
+    type="password"
+    id="passwordInput"
+    name="passwordInput"
+    value="{{passwordInput}}"
+    required="true"
+  />
+  <br />
+  <label for="confirmPasswordInput">Confirm Password:</label>
+  <input
+    type="password"
+    id="confirmPasswordInput"
+    name="confirmPasswordInput"
+    value="{{confirmPasswordInput}}"
+    required="true"
+  />
+  <br />
+  <label for="feesInput">Fees:</label>
+  <input
+    type="number"
+    id="feesInput"
+    name="feesInput"
+    min="0"
+    value="{{feesInput}}"
+  />
+  <br />
+  <label for="addressInput">Address :</label>
+  <input
+    type="text"
+    id="addressInput"
+    name="addressInput"
+    min="0"
+    value="{{addressInput}}"
+    required="true"
+  />
+  <br />
+
+  <label for="cityInput">City:</label>
+  <input type="text" id="cityInput" name="cityInput" value="{{cityInput}}" />
+  <br />
+  <label for="stateInput">State:</label>
+  <input
+    type="text"
+    id="stateInput"
+    name="stateInput"
+    value="{{stateInput}}"
+    required="true"
+  />
+  <br />
+  <label for="zipCodeInput">Zip Code:</label>
+  <input
+    type="text"
+    id="zipCodeInput"
+    name="zipCodeInput"
+    value="{{zipCodeInput}}"
+    required="true"
+  />
+  <br />
+  <label for="descriptionInput">Dietitian Description:</label>
+  <textarea
+    id="descriptionInput"
+    name="descriptionInput"
+    required="true"
+  >{{descriptionInput}}</textarea>
+  <br />
+  {{#if error}}
+    <div class="form-group" id="error-container">
+      <div class="alert alert-danger text-goes-here">
+        <p class="error">{{{error}}}</p>
+      </div>
+    </div>
+  {{/if}}
+  <div class="form-group">
+    <button type="submit" id="btn_sub">Sign Up</button>
+  </div>
+
+</form>
+<footer>
+  <nav>
+    <ul>
+      <li><a href="/dietitian/login" id="a_for_login">Already have an account?
+          Click here to log-in</a></li>
+      <li><a href="/restaurant/registerRestaurant">Register as Reastaurant owner</a></li>
+      <li><a href="/fitness/fitnessRestaurant">Register as Fitness owner</a></li>
+      <li><a href="/registeruser">Register as User</a></li>
+    </ul>
+  </nav>
+</footer>
+
+{{!-- {{#if error}} --}}
+
+{{!-- {{/if}} --}}

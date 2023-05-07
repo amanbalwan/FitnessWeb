@@ -15,8 +15,8 @@ const exportedMethods={
       } else if (req.session.user.role === 'Fitness') {
         res.redirect('/profilefitness');
       }
-      else if (req.session.user.role === 'Diteiation') {
-        res.redirect('/profileDite');
+      else if (req.session.user.role === 'Dietitian') {
+        res.redirect('/dietitian/profile');
       }
     } else {
       res.redirect('/landingpage');

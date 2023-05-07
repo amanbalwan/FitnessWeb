@@ -1,0 +1,52 @@
+<div id="exercises"></div>
+<form
+  id="dietitian-appointment-form"
+  method="post"
+  action="/dietitian/bookappointment/{{id}}"
+>
+  <div><label for="weightGain">Weight Gain</label>
+    <input
+      type="radio"
+    required="true"
+      name="weightType"
+      id="weightGain"
+      value="weightGain"
+      onchange="displayExercises()"
+    />
+    <label for="weightLoss">Weight Loss</label>
+    <input
+      type="radio"
+    required="true"
+      name="weightType"
+      id="weightLoss"
+      value="weightLoss"
+      onchange="displayExercises()"
+    />
+  </div>
+  <div><label for="date">Date</label>
+    <input type="date" name="date" id="date"
+    required="true"
+     />
+  </div>
+  <div><label for="startTime">Appointment time (9:00 am to 5:00 pm)</label>
+    <input type="time" name="startTime" id="startTime" min="09:00" max="17:00"
+    required="true"
+    />
+  </div>
+  <div><p>Duration : 1 hour</p>  </div>
+  <div><input type="submit" value="Book Appointment" /> </div>
+</form>
+
+<div>
+  <a href="/">Back to Homepage</a>
+</div>
+
+<script>
+  const displayExercises = () => { const weightType = document.querySelector(
+  "input[name=weightType]:checked" ).value; let exercises = `<h4>Exercises for
+  Weight ${ weightType === "weightGain" ? "Gain" : "Loss" } </h4>`; if
+  (weightType == "weightGain") { exercises += `<ol> <li>gain 1</li> <li>gain
+  2</li> <li>gain 3</li> </ol>`; } else { exercises += `<ol> <li>loss 1</li>
+  <li>loss 2</li> <li>loss 3</li> </ol>`; }
+  document.getElementById("exercises").innerHTML = exercises; return };
+</script>
