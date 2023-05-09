@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    {{#each restaurantList}}
+    <div class="col-md-4">
+      <div class="card mb-4 box-shadow">
+        <div class="card-body">
+          <h3>{{this.storeName}}</h3>
+          <a href="/restaurants/{{this._id}}">View restaurant</a>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
