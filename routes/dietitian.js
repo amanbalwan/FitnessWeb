@@ -465,7 +465,7 @@ dietitianrouter
       //   (parseInt(startTime[0]) + 1).toString() + ":" + startTime[1];
       try {
         // const result = await appointmentData.createAppointment(data);
-        
+        console.log('sds');
         if (true)
           return res.render("bookappointment", {
             title: "Appointment",

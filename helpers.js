@@ -108,7 +108,7 @@ const exportedMethods = {
           weightValidation(weight) {
             // Check if weight is a positive number
             if (isNaN(weight) || weight <= 0) {
-              throw new Error('Please enter a valid weight in kilograms');
+              throw new Error('Please enter a valid weight in lbs');
             }
           
             // Weight is valid

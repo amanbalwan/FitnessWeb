@@ -7,7 +7,7 @@ import validation from "../helpers.js";
 
 
 const exportedMethods = {
-  async createFitness(name, emailAddress, password, confirmPassword,address, zipcode,phoneNumber,activites,description) {
+  async createFitness(name, emailAddress, password, confirmPassword,address, zipcode,phoneNumber,activites) {
 
     
     name = validation.stringValidation(name, "First Name");
@@ -22,7 +22,7 @@ const exportedMethods = {
     zipcode=validation.zipCodeValidation(zipcode);
     phoneNumber=validation.phoneNumberValidation(phoneNumber);
     activites=validation.stringValidation(activites);
-    // description=validation.stringValidation(description);
+    
     
     
     
@@ -54,7 +54,7 @@ const exportedMethods = {
       role:'Fitness',
       password: await bcrypt.hash(password, saltRounds),
       activites:activites,
-      description:description,
+      
       ratings:0,
     };
 
@@ -66,12 +66,12 @@ const exportedMethods = {
     return { insertedUser: true };
   },
 
-  async updateFitness(id,name,address, zipcode,activites,description){
+  async updateFitness(id,name,address, zipcode,activites){
     
     address=validation.stringValidation(address,'Address line 1');
     zipcode=validation.zipCodeValidation(zipcode);
     activites=validation.stringValidation(activites,"Activities")
-    description=validation.stringValidation(description,"Activities")
+
     
     const updatedMember = {
 
@@ -79,7 +79,7 @@ const exportedMethods = {
       address:address,
       zipcode:zipcode,
       activites:activites,
-      description:description
+
     };
 
     

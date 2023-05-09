@@ -55,7 +55,7 @@ fitnessrouter
         // console.log(req.session.user,'Fro login')
         // res.redirect(`/homepage/${user._id}`);
         
-        res.redirect('/');
+        res.redirect('/fitness/fitnessprofile');
       } else {
         throw `Either email address or password is invalid`;
       }
@@ -141,7 +141,7 @@ fitnessrouter
       let newUser = await fitnessData.createFitness(fitnesCenterName,emailAddress,password,confirmPassword,address,zipcode,phoneNumber,activites)
       if (newUser.insertedUser == true) {
         
-        res.redirect("/");
+        res.render("fitnesslogin", { title: "Login as Fitness", header: "Login as Fitness" });
       }
     } catch (e) {
         return res.status(400).render("fitnessregister", {
@@ -222,14 +222,14 @@ fitnessrouter
     let phoneNumber=req.session.user.phoneNumber;
     let activites=req.body.activites;
     let description=req.body.description;
-    console.log(fitnesCenterName,emailAddress,activites,'post')
+    
     try {
 
         
         address=validation.stringValidation(address,'Address');
         zipcode=validation.zipCodeValidation(zipcode);
         activites=validation.stringValidation(activites,'activites');
-        description=validation.stringValidation(description,'description');
+        
 
       // if (req.body.roleInput !== "admin" || req.body.roleInput !== "user") {
       //   throw `Invalid role. Only "admin" or "user" allowed.`;

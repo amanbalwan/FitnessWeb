@@ -1,6 +1,9 @@
 import { dbConnection, closeConnection } from './config/mongoConnection.js';
 // import e from 'express';
 import restaurants from "./data/restaurants.js";
+import fitnessData from "./data/fitnessdata.js";
+import dietitianData from "./data/dietitians.js";
+
 
 const db = await dbConnection();
 // await db.dropDatabase();
@@ -92,11 +95,6 @@ let res1Email = null;
 let res1Hashpwd = null;
 try {
     const res1 = await restaurants.createRestaurant(restaurant1);
-    console.log("Creating the restautant");
-    console.log(res1);
-    res1Id = res1._id;
-    res1Email = res1.storeEmail;
-    res1Hashpwd = res1.storePassword;
 } catch (e) {
     console.log(e);
 };
@@ -104,7 +102,6 @@ try {
 
 try {
     const res1 = await restaurants.createRestaurant(restaurant2);
-    console.log("Creating second restautant");
     console.log(res1);
 } catch (e) {
     console.log(e);
@@ -112,11 +109,123 @@ try {
 
 try {
     const res1 = await restaurants.createRestaurant(restaurant3);
-    console.log("Creating third restautant");
-    console.log(res1);
+    
 } catch (e) {
     console.log(e);
 };
+
+try{
+    const fit1=await fitnessData.createFitness('Fit Cneter','zxc@gmail.com','Pass123@','Pass123@','20 Becan Av','07306','9999988888','Running');
+
+}catch (e){
+    console.log(e)
+}
+try{
+    const fit2=await fitnessData.createFitness('New York Cneter','zzzxc@gmail.com','Pass123@','Pass123@','99 Becan Av','07302','8887776665','Jumping');
+
+}catch (e){
+    console.log(e)
+}
+try{
+    const fit3=await fitnessData.createFitness('Jersey FitCneter','xxxxc@gmail.com','Pass123@','Pass123@','121 pal Av','07306','1112223334','Running');
+
+}catch (e){
+    console.log(e)
+}
+
+try{
+    let firstName = 'Abc';
+    let lastName = "Xyz";
+    let emailAddress = "abccc@gmail.com";
+    let password = "Pass123@";
+    let confirmPassword = 'Pass123@';
+    let address = "321 Oak St";
+    let zipcode = "67890";
+    let city = "Suburbia";
+    let state = "NJ";
+    let description = "Experienced fitness in HIIT training";
+    let phoneNumber = "5554443322";
+    let fees = "200";
+
+    let newDietitian = await dietitianData.createDietitian({
+        firstName,
+        lastName,
+        emailAddress,
+        password,
+        confirmPassword,
+        address,
+        zipcode,
+        city,
+        state,
+        description,
+        phoneNumber,
+        fees,
+      });
+}catch (e){
+    console.log(e)
+}
+try{
+    let firstName = 'Abc';
+    let lastName = "Xyz";
+    let emailAddress = "pqqqqq@gmail.com";
+    let password = "Pass123@";
+    let confirmPassword = 'Pass123@';
+    let address = "22 Court St";
+    let zipcode = "12345";
+    let city = "Suburbia";
+    let state = "PA";
+    let description = "Experienced fitness in HIIT training";
+    let phoneNumber = "1212121212";
+    let fees = "200";
+
+    let newDietitian = await dietitianData.createDietitian({
+        firstName,
+        lastName,
+        emailAddress,
+        password,
+        confirmPassword,
+        address,
+        zipcode,
+        city,
+        state,
+        description,
+        phoneNumber,
+        fees,
+      });
+}catch (e){
+    console.log(e)
+} 
+try{
+    let firstName = 'Pqr';
+    let lastName = "dfad";
+    let emailAddress = "zzbccc@gmail.com";
+    let password = "Pass123@";
+    let confirmPassword = 'Pass123@';
+    let address = "21 Oak St";
+    let zipcode = "07306";
+    let city = "Jersey";
+    let state = "NY";
+    let description = "Experienced fitness in MIT training";
+    let phoneNumber = "5545443322";
+    let fees = "123";
+
+    let newDietitian = await dietitianData.createDietitian({
+        firstName,
+        lastName,
+        emailAddress,
+        password,
+        confirmPassword,
+        address,
+        zipcode,
+        city,
+        state,
+        description,
+        phoneNumber,
+        fees,
+      });
+}catch (e){
+    console.log(e)
+}
 
 
 

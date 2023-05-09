@@ -13,6 +13,7 @@ restaurantsrouter
   .post(async (req, res) => {
     let storeEmail = req.body.storeEmailInput;
     let storePassword = req.body.storePasswordInput;
+    console.log('Hey ag')
     try {
       // storeEmail = validation.stringValidation(storeEmail, "Email Address");
       // storeEmail = req.body.storeEmailInput.toLowerCase();
@@ -66,9 +67,11 @@ restaurantsrouter
   restaurantsrouter
   .route("/restaurantsSignup")
   .get(async (req, res) => {
+    console.log('hey')
     res.render("restaurantsSignup", { title: "Registration as Restaurant", header: "Registration as Restaurant" });
   })
   .post(async (req, res) => {
+    console.log('Hey')
     let storeName = req.body.storeNameInput;
     let storeAddress = req.body.storeAddressInput;
     let storeZip = req.body.storeZipInput;
@@ -134,7 +137,8 @@ restaurantsrouter
     try {
       let restaurant_owner = await restaurantsData.createRestaurant(restaurant_creation);
       if (restaurant_owner._id) {
-        res.redirect("/restaurant/restaurantsLogin");
+        console.log('Hey')
+        res.render("restaurantsLogin", { title: "Login as Restaurant", header: "Login as Restaurant" });
       }
     } catch (e) {
       return res.status(400).render("restaurantsSignup", {

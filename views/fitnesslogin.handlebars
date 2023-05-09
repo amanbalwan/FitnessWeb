@@ -1,5 +1,5 @@
 
-<form id="fitness-login-form" method="POST" action="/fitness">
+<form id="fitness-login-form" method="POST" action="/fitness/login">
   <label for="emailInput">Email Address:</label>
   <input
     type="email"
@@ -9,7 +9,7 @@
   />
   <br />
   <label for="passwordInput">Password:</label>
-  <div class="password-input">
+  <div class="password-input" style="display:inline-block;">
     <input type="password" name="passwordInput" value="{{passwordInput}}" id="passwordInput"  />
     <input type="checkbox" id="show-password-checkbox" />
     <label for="show-password-checkbox">Show password</label>

@@ -8,9 +8,14 @@
         <input type="email" id="storeEmailInput" name="storeEmailInput" value="{{storeEmailInput}}" required>
         <br>
         <label for="storePasswordInput">Password:</label>
-        <input type="password" id="storePasswordInput" name="storePasswordInput" value="{{storePasswordInput}}"
+        
+        <div class="password-input" style="display:inline-block;">
+    <input type="password" id="storePasswordInput" name="storePasswordInput" value="{{storePasswordInput}}"
             required>
-        <br>
+    <input type="checkbox" id="show-password-checkbox" />
+    <label for="show-password-checkbox">Show password</label>
+  </div>
+  </br>
         <button type="submit" id="login_btn">Login</button>
     </form>
     
