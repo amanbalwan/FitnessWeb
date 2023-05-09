@@ -1,0 +1,64 @@
+{{ main header="Page 2 Header"}}
+<main>
+  <p>This is the content for Page 2.</p>
+</main>
+
+<div>
+  <h2>Fitness Center Profile</h2>
+  <p>Name: {{Name}}</p>
+  
+{{!--   
+  <form id="profile-form" action="/profileFitcen" method="get">
+    <label for="ageInput">Age:</label>
+    <input type="number" id="ageInput" name="ageInput" value="{{age}}" />
+    <br />
+    <label for="addressLine1Input">Address Line 1:</label>
+    <input type="text" id="addressLine1Input" name="addressLine1Input" value="{{addressLine1}}" />
+    <br />
+    <label for="zipCodeInput">Zip Code:</label>
+    <input type="text" id="zipCodeInput" name="zipCodeInput" value="{{zipCode}}" />
+    <br/>
+    <label for="weightInput">Weight:</label>
+    <input type="number" id="weightInput" name="weightInput" value="{{weight}}" />
+    <br />
+    <label for="heightInput">Height:</label>
+    <input type="number" id="heightInput" name="heightInput" value="{{height}}" />
+    <br />
+    <label for="fitnessLevelInput">Fitness Level:</label>
+    <select id="fitnessLevelInput" name="fitnessLevelInput">
+      <option value="beginner" {{#if fitnessLevelIsBeginner}}selected{{/if}}>Beginner</option>
+      <option value="intermediate" {{#if fitnessLevelIsIntermediate}}selected{{/if}}>Intermediate</option>
+      <option value="advanced" {{#if fitnessLevelIsAdvanced}}selected{{/if}}>Advanced</option>
+    </select>
+    <br />
+    <div class="form-group" id="error-container">
+        <div class="alert alert-danger text-goes-here">
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" id="btn_save">Save</button>
+      </div>
+  </form>
+   
+  {{else}} --}}
+  
+  <p>Address Line 1: {{addressLine1}}</p>
+  <p>Zip Code: {{zipCode}}</p>
+  <p>rating: {{rating}}</p>
+  <p>activities: {{activities}}</p>
+  <div id="edit-section">
+    <form id="'profile-form"   action="/editprofileFitcen" method="get" >
+      <button type="edit" id="edit_btn">Edit</button>
+    </form>
+  </div>
+  {{!-- {{/if}}
+
+  <form id="delete-form" action="/profileFitcen" method="POST">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="delete" id="btn_save">Delete</button>
+  </form> --}}
+</div>
+
+
+
+

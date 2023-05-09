@@ -1,0 +1,34 @@
+<div>
+  <h2>Fitness Center Profile</h2>
+  <p>Name: {{Name}}</p>
+  <p>Email Address: {{emailAddress}}</p>
+  <p>Phone Number: {{phoneNumber}}</p>
+  
+  <form id="profile-form" action="/editprofileFitcen" method="POST">
+   
+    <label for="addressLine1Input">Address Line 1:</label>
+    <input type="text" id="addressLine1Input" name="addressLine1Input" value="{{addressLine1}}" />
+    <br />
+    <label for="zipCodeInput">Zip Code:</label>
+    <input type="text" id="zipCodeInput" name="zipCodeInput" value="{{zipCode}}" />
+    <br/>
+    
+    <label for="activities">activities:</label>
+    <input type="text" id="activitiesInput" name="activitiesInput" value="{{activities}}" />
+    <br />
+    
+    
+    <div class="form-group" id="error-container">
+        <div class="alert alert-danger text-goes-here">
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" id="btn_save">Save</button>
+      </div>
+  </form>
+   
+</div>
+
+
+
+

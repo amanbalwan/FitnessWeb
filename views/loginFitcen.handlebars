@@ -1,0 +1,31 @@
+{{!--
+
+login form handlebar template
+
+--}}
+
+
+<form id="login-form" method="POST" action="/loginFitcen">
+  <label for="emailInput">Email Address:</label>
+  <input
+    type="email"
+    name="emailInput"
+    value="{{emailInput}}"
+    id="emailInput"
+    
+  />
+  <br />
+  <label for="passwordInput">Password:</label>
+  <input type="password" name="passwordInput" value="{{passwordInput}}" id="passwordInput"  />
+  <br />
+   <div class="form-group hidden" id="error-container">
+        <div class="alert alert-danger text-goes-here">
+        </div>
+      </div>
+  <button type="submit" id="login_btn">Login</button>
+</form>
+<a href="/registerFitcen" id="a_for_register">Click here to register!</a>
+
+{{#if error}}
+  <p class="error">{{{error}}}</p>
+{{/if}}
