@@ -302,16 +302,16 @@ fitnessrouter
   fitnessrouter.route('/fitnessdetails/:id').get(async(req,res)=>{
     
     let id = req.params.id;
-    console.log(id,'id');
+    // console.log(id,'id');
     try{
       id = validation.idValidation(id,"ID")
-      console.log('in try 1');
+      // console.log('in try 1');
     }catch(err){
-      console.log('First error');
+      // console.log('First error');
       res.status(404).render("error", { title: "Page Not Found" });
     }
     try {
-      console.log('sad')
+      
       const dietitian = await fitnessData.getFitnessById(id);
       
 

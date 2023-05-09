@@ -16,6 +16,14 @@ const exportedMethods = {
     
         return value;
       },
+      storeNameValid(storeName, varName) {
+        if(!storeName) throw `Error: You must supply a ${varName}!`;
+        if (typeof storeName !== 'string') throw `Error: ${varName} must be a string!`;
+        storeName = storeName.trim();
+        if (storeName.length === 0) throw `Error: ${varName} cannot be an empty string or string with just spaces`;
+        if (!isNaN(storeName)) throw `Error: ${storeName} is not a valid value for ${varName} as it only contains digits`;
+        return storeName;
+    },
     
       stringValidation(strVal, varName) {
         
@@ -126,7 +134,57 @@ const exportedMethods = {
           
             // ZIP code is valid
             return zip;
-          }
+          },
+          addressValidation(storeAddress) {
+            if (typeof storeAddress !== "string") {
+                throw new Error("Address must be a string.");
+            }
+            storeAddress = storeAddress.trim();
+            if (storeAddress.length === 0) {
+                throw new Error("Address cannot be empty.");
+            }
+            if (/^\d+$/.test(storeAddress)) {
+                throw new Error("Address cannot contain only numbers.");
+              }
+            // Convert the address to title case
+            const formattedAddress = storeAddress.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+    
+            // Split the address into words
+            const words = formattedAddress.split(" ");
+    
+            // Find the index of the first word that contains a digit
+            const houseNumberIndex = words.findIndex(word => /\d/.test(word));
+    
+            // If no digit was found, the address is invalid
+            if (houseNumberIndex === -1) {
+                throw new Error("Address must contain a house number.");
+            }
+    
+            // Join the words back together and return the formatted address
+            return words.join(" ");
+        },
+    
+        menuValidation(menus) {
+            if (menus && (!Array.isArray(menus) || menus.length === 0))
+                throw new Error('Menus must be a non-empty array');
+            if (
+                menus &&
+                !menus.every(
+                    (menu) =>
+                        typeof menu.name === 'string' &&
+                        typeof menu.price === 'number' &&
+                        typeof menu.description === 'string' &&
+                        menu.name.trim().length > 0 &&
+                        !isNaN(menu.price) &&
+                        menu.description.trim().length > 0
+                        
+                )
+            )
+                throw new Error(
+                    'Each menu must have a non-empty name, valid price and a description'
+                );
+            return menus;
+        }
 
 
 

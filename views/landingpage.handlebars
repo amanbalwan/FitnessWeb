@@ -93,9 +93,12 @@
     {{#if resdatalist}}
       {{#each resdatalist}}
         <li class="item">
-          <a href="/restaurantdetails/{{id}}">
-            <h3>{{name}}</h3>
+          <a href="/restaurant/restaurants/{{_id}}">
+            <h3>{{storeName}}</h3>
             <p>{{description}}</p>
+            <p>{{storeAddress}}</p>
+            <p>{{storeZip}}</p>
+            
           </a>
         </li>
       {{/each}}
