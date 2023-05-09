@@ -9,7 +9,7 @@ const fitnessrouter = Router();
 
 
 fitnessrouter
-.route('/')
+.route('/login')
   .get(async (req, res) => {
     //code here for GET
 
@@ -95,7 +95,10 @@ fitnessrouter
     let zipcode=req.body.zipcode;
     let phoneNumber=req.body.phoneNumber;
     let activites=req.body.activites;
-    
+    let description=req.body.description;
+  
+
+    console.log(req.body,'b')
     try {
 
         fitnesCenterName = validation.stringValidation(fitnesCenterName, " Name");
@@ -110,6 +113,7 @@ fitnessrouter
         address=validation.stringValidation(address,'Address');
         zipcode=validation.zipCodeValidation(zipcode);
         activites=validation.stringValidation(activites,'activites');
+        
 
       // if (req.body.roleInput !== "admin" || req.body.roleInput !== "user") {
       //   throw `Invalid role. Only "admin" or "user" allowed.`;
@@ -127,6 +131,7 @@ fitnessrouter
         zipcode:zipcode,
         phoneNumber:phoneNumber,
         activites:activites,
+        description:description,
         error: e,
       });
     }
@@ -150,6 +155,7 @@ fitnessrouter
             zipcode:zipcode,
             phoneNumber:phoneNumber,
             activites:activites,
+            description:description,
             error: e,
           });
     }
@@ -169,6 +175,7 @@ fitnessrouter
     let zipcode=req.session.user.zipcode;
     let phoneNumber=req.session.user.phoneNumber;
     let activites=req.session.user.activites;
+    let description=req.session.user.description;
 
     
     res.render('fitnessprofile',{
@@ -178,11 +185,12 @@ fitnessrouter
         address:address,
         phoneNumber:phoneNumber,
         zipcode:zipcode,
-        activites:activites
+        activites:activites,
+        description:description
     })
   });
 
-  
+
 
   fitnessrouter.route('/fitnesseditprofile').get(async(req,res)=>{
     let fitnesCenterName=req.session.user.fitnesCenterName;
@@ -191,6 +199,8 @@ fitnessrouter
     let zipcode=req.session.user.zipcode;
     let phoneNumber=req.session.user.phoneNumber;
     let activites=req.session.user.activites;
+    let description=req.session.user.description;
+    
 
     console.log(fitnesCenterName,emailAddress,activites,'get')
     res.render('fitnesseditprofile',{
@@ -200,7 +210,8 @@ fitnessrouter
         address:address,
         phoneNumber:phoneNumber,
         zipcode:zipcode,
-        activites:activites
+        activites:activites,
+        description:description
     })
   })
   .post(async(req,res)=>{
@@ -210,6 +221,7 @@ fitnessrouter
     let zipcode=req.body.zipcode;
     let phoneNumber=req.session.user.phoneNumber;
     let activites=req.body.activites;
+    let description=req.body.description;
     console.log(fitnesCenterName,emailAddress,activites,'post')
     try {
 
@@ -217,6 +229,7 @@ fitnessrouter
         address=validation.stringValidation(address,'Address');
         zipcode=validation.zipCodeValidation(zipcode);
         activites=validation.stringValidation(activites,'activites');
+        description=validation.stringValidation(description,'description');
 
       // if (req.body.roleInput !== "admin" || req.body.roleInput !== "user") {
       //   throw `Invalid role. Only "admin" or "user" allowed.`;
@@ -228,11 +241,11 @@ fitnessrouter
         header: "Fitness Registration",
         fitnesCenterName:fitnesCenterName,
         emailAddress:emailAddress,
-        
         address:address,
         zipcode:zipcode,
         phoneNumber:phoneNumber,
         activites:activites,
+        description:description,
         error: e,
       });
     }
@@ -254,7 +267,8 @@ fitnessrouter
                 zipcode:updatefitnessUser.zipcode,
                 phoneNumber:updatefitnessUser.phoneNumber,
                 role:updatefitnessUser.role,
-                activites:updatefitnessUser.activites
+                activites:updatefitnessUser.activites,
+                description:updatefitnessUser.description
               };
           }
           console.log('aas')
@@ -265,7 +279,8 @@ fitnessrouter
             address:address,
             phoneNumber:phoneNumber,
             zipcode:zipcode,
-            activites:activites
+            activites:activites,
+            description:description
         });
       } catch (e) {
           return res.status(400).render("fitnesseditprofile", {
@@ -273,16 +288,66 @@ fitnessrouter
               header: "Fitness Edit Profile",
               fitnesCenterName:fitnesCenterName,
               emailAddress:emailAddress,
-              
               address:address,
               zipcode:zipcode,
               phoneNumber:phoneNumber,
               activites:activites,
+              description:description,
               error: e,
             });
       }
   });
 
+
+  fitnessrouter.route('/fitnessdetails/:id').get(async(req,res)=>{
+    
+    let id = req.params.id;
+    console.log(id,'id');
+    try{
+      id = validation.idValidation(id,"ID")
+      console.log('in try 1');
+    }catch(err){
+      console.log('First error');
+      res.status(404).render("error", { title: "Page Not Found" });
+    }
+    try {
+      console.log('sad')
+      const dietitian = await fitnessData.getFitnessById(id);
+      
+
+      let fitnesCenterName=dietitian.name;
+      
+      let emailAddress=dietitian.emailAddress;
+      let address=dietitian.address;
+      let zipcode=dietitian.zipcode;
+      let phoneNumber=dietitian.phoneNumber;
+      let activites=dietitian.activites;
+      let description=dietitian.description;
+
+
+      
+  
+      if (req.session?.user?.role === "User") bookappointment = true;
+  
+      res.render("profilefitness", {
+        title: "Profile",
+        header: "Fitness Profile",
+        fitnesCenterName:fitnesCenterName,
+        emailAddress:emailAddress,
+        address:address,
+        phoneNumber:phoneNumber,
+        zipcode:zipcode,
+        activites:activites,
+        description:description
+      });
+    } catch (e) {
+      console.log('2First error');
+      return res.status(400).render("error", {
+        title: "Error",
+        error: e,
+      });
+    }
+  });
   
 
 export default fitnessrouter;

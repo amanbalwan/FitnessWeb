@@ -9,6 +9,13 @@ const exportedMethods = {
         if (!ObjectId.isValid(id)) throw `Error: ${varName} is invalid object ID`;
         return id;
       },
+      checkNumber(value, varName) {
+        value = value.replace(/\s+/g, "").replace(/\D/g, "");
+    
+        if (!value.length) throw `${varName} should contain atleast 1 digit`;
+    
+        return value;
+      },
     
       stringValidation(strVal, varName) {
         

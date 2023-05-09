@@ -3,7 +3,7 @@ import { Router } from "express";
 import userData from "../data/user.js";
 import validation from "../helpers.js";
 import middlewarefun from '../middleware.js';
-import { users } from "../config/mongoCollections.js";
+import { users,fitness,dietitians,appointments } from "../config/mongoCollections.js";
 import { ObjectId } from "mongodb";
 const homerouter = Router();
 
@@ -106,8 +106,13 @@ let restdata=[
 
 homerouter.route('/').get(async (rqq,res)=>
 {
+    const fitnessdata = await fitness();
+    let fitneslist = await fitnessdata.find({}).toArray();
+    const dietitiansdata = await dietitians();
+    let dietitianslist = await dietitiansdata.find({}).toArray();
     
-  res.render('landingpage',{title:'HomePage',header:'homepage',resdatalist:restdata,fitnessatalist:fitnessdata})
+    
+  res.render('landingpage',{title:'HomePage',header:'homepage',resdatalist:restdata,dietitianslist:dietitianslist,fitnessatalist:fitneslist})
 });
 
 homerouter.route('/homepage/:id').get(async(req,res)=>{

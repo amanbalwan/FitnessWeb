@@ -1,0 +1,90 @@
+<div>
+  <p>First Name: {{firstName}}</p>
+  <p>Last Name: {{lastName}}</p>
+  <p>Email Address: {{emailAddress}}</p>
+
+  <form
+    id="-dietitian-profile-form"
+    action="/dietitian/profile/edit"
+    method="POST"
+  >
+    <label for="phoneNumberInput">PhoneNumber:</label>
+    <input
+      type="number"
+      id="phoneNumberInput"
+      name="phoneNumberInput"
+      value="{{phoneNumberInput}}"
+    required="true"
+
+    />
+    <br />
+    <label for="feesInput">Fees:</label>
+    <input
+      type="number"
+      id="feesInput"
+      name="feesInput"
+    required="true"
+      value="{{feesInput}}"
+
+    />
+    <br />
+    <label for="addressInput">Address :</label>
+    <input
+      type="text"
+      id="addressInput"
+      name="addressInput"
+    required="true"
+
+      value="{{addressInput}}"
+    />
+    <br />
+
+    <label for="zipCodeInput">Zip Code:</label>
+    <input
+      type="text"
+      id="zipCodeInput"
+    required="true"
+      name="zipCodeInput"
+
+      value="{{zipCodeInput}}"
+    />
+    <br />
+    <label for="cityInput">City:</label>
+    <input
+    required="true"
+      type="text"
+      id="cityInput"
+      name="cityInput"
+      value="{{cityInput}}"
+    />
+    <br />
+    <label for="stateInput">State:</label>
+    <input
+      type="text"
+    required="true"
+      id="stateInput"
+      name="stateInput"
+      value="{{stateInput}}"
+    />
+    <br />
+    <label for="descriptionInput">Dietitian Description:</label>
+    <textarea
+      id="descriptionInput"
+    required="true"
+      name="descriptionInput"
+    >{{descriptionInput}}</textarea>
+    <br />
+
+    {{#if error}}
+      <div class="form-group" id="error-container">
+        <div class="alert alert-danger text-goes-here">
+          <p class="error">{{{error}}}</p>
+        </div>
+      </div>
+    {{/if}}
+    <div class="form-group">
+      <button type="submit" id="btn_sub">Save</button>
+    </div>
+  </form>
+
+</div>

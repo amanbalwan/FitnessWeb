@@ -1,4 +1,5 @@
 //import mongo collections, bcrypt and implement the following data functions
+import { ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
 const saltRounds = 15;
 import { fitness } from "../config/mongoCollections.js";
@@ -6,7 +7,7 @@ import validation from "../helpers.js";
 
 
 const exportedMethods = {
-  async createFitness(name, emailAddress, password, confirmPassword,address, zipcode,phoneNumber,activites) {
+  async createFitness(name, emailAddress, password, confirmPassword,address, zipcode,phoneNumber,activites,description) {
 
     
     name = validation.stringValidation(name, "First Name");
@@ -21,6 +22,7 @@ const exportedMethods = {
     zipcode=validation.zipCodeValidation(zipcode);
     phoneNumber=validation.phoneNumberValidation(phoneNumber);
     activites=validation.stringValidation(activites);
+    // description=validation.stringValidation(description);
     
     
     
@@ -52,6 +54,7 @@ const exportedMethods = {
       role:'Fitness',
       password: await bcrypt.hash(password, saltRounds),
       activites:activites,
+      description:description,
       ratings:0,
     };
 
@@ -63,11 +66,12 @@ const exportedMethods = {
     return { insertedUser: true };
   },
 
-  async updateFitness(id,name,address, zipcode,activites){
+  async updateFitness(id,name,address, zipcode,activites,description){
     
     address=validation.stringValidation(address,'Address line 1');
     zipcode=validation.zipCodeValidation(zipcode);
     activites=validation.stringValidation(activites,"Activities")
+    description=validation.stringValidation(description,"Activities")
     
     const updatedMember = {
 
@@ -75,6 +79,7 @@ const exportedMethods = {
       address:address,
       zipcode:zipcode,
       activites:activites,
+      description:description
     };
 
     
@@ -144,6 +149,24 @@ const exportedMethods = {
       throw `Could not delete dog with id of ${id}`;
     }
     return `${deletionInfo.value.name} has been successfully deleted!`;
-  }
+  },
+
+  async getFitnessById(id){
+    id = validation.idValidation(id, "Id");
+    
+    const fitnessCollection = await fitness();
+    const fitnesInfo = await fitnessCollection.findOne({
+      _id: new ObjectId(id)
+    });
+    // console.log(fitnesInfo,)
+    if (!fitnesInfo) throw `No dietitian found with id ${id}`;
+
+    fitnesInfo._id = fitnesInfo._id.toString();
+    // console.log(fitnesInfo,'from db')
+    return fitnesInfo;
+  },
+  
+
+  
 };
 export default exportedMethods;
