@@ -2,7 +2,9 @@
 CS 546 Web Programming I Final Project - All about Fitness
 
 
-To start the project first we have to install all the packages for that 
-run npm i
-then to load data into database we have to run 
-npm run seed
+Instructions on how to install the project, including any prerequisites.
+$ npm install
+
+Instructions on how to use the project, including any required commands or configuration.
+$ npm start
+
