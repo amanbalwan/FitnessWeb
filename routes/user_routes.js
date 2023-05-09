@@ -3,7 +3,7 @@ import { Router } from "express";
 import userData from "../data/user.js";
 import validation from "../helpers.js";
 import middlewarefun from '../middleware.js';
-import { users } from "../config/mongoCollections.js";
+import { users,fitness,dietitians,restaurants } from "../config/mongoCollections.js";
 const router = Router();
 
 
@@ -310,8 +310,26 @@ router
     })
   });
 
-  router.route('logout').get(async(req,res)=>{
 
+    
+  router.route('/logout').get(async(req,res)=>{
+    const fitnessdata = await fitness();
+    let fitneslist = await fitnessdata.find({}).toArray();
+    const dietitiansdata = await dietitians();
+    let dietitianslist = await dietitiansdata.find({}).toArray();
+    const restaurantdata= await restaurants();
+    let restaurantlist = await restaurantdata.find({}).toArray();
+    console.log(req.session,'ss');
+    req.session.destroy((err) => {
+      if (err) {
+          console.log(err);
+      } else {
+          res.clearCookie('AuthCookie');
+
+          console.log(restaurantlist,'s')
+          res.render('landingpage',{title:'HomePage',header:'homepage',resdatalist:restaurantlist,dietitianslist:dietitianslist,fitnessatalist:fitneslist})
+      }
+  });
   });
 
 

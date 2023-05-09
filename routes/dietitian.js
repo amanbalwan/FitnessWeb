@@ -8,7 +8,7 @@ dietitianrouter
   .route("/login")
   .get(async (req, res) => {
     return res.render("dietitianLogin", {
-      title: "Login",
+      title: "Login as Dietitian",
       header: "Login as Dietitian",
     });
   })
@@ -23,7 +23,7 @@ dietitianrouter
       password = validation.passwordValidation(password);
     } catch (e) {
       return res.status(400).render("dietitianLogin", {
-        title: "Login",
+        title: "Login as Dietitian",
         header: "Login as Dietitian",
         emailInput: emailAddress,
         passwordInput: password,
@@ -60,7 +60,7 @@ dietitianrouter
       }
     } catch (e) {
       return res.status(400).render("dietitianLogin", {
-        title: "Login",
+        title: "Login as Dietitian",
         header: "Login as Dietitian",
         emailInput: req.body.emailInput,
         passwordInput: req.body.passwordInput,
@@ -79,7 +79,7 @@ dietitianrouter
   .route("/register")
   .get(async (req, res) => {
     return res.render("dietitianRegister", {
-      title: "Register",
+      title: "Register as Dietitian",
       header: "Register as Dietitian",
     });
   })
@@ -121,7 +121,7 @@ dietitianrouter
       fees = validation.checkNumber(fees, "Fees");
     } catch (e) {
       return res.status(400).render("dietitianRegister", {
-        title: "Register",
+        title: "Register as Dietitian",
         header: "Register as Dietitian",
         firstNameInput: firstName,
         lastNameInput: lastName,
@@ -159,7 +159,7 @@ dietitianrouter
       }
     } catch (e) {
       return res.status(400).render("dietitianRegister", {
-        title: "Register",
+        title: "Register as Dietitian",
         header: "Register as Dietitian",
         firstNameInput: firstName,
         lastNameInput: lastName,
@@ -445,27 +445,28 @@ dietitianrouter
     if (req.session?.user?.role === "User") {
       const id = req.params.id;
       let dietitian;
-
+      
       try {
         dietitian = await dietitianData.getDietitianById(id);
-        if (!dietitian.verified)
-          throw "You cannot book appointment for this dietitian";
+        // if (!dietitian.verified)
+        //   throw "You cannot book appointment for this dietitian";
       } catch (e) {
         return res.status(400).render("error", {
           title: "Error",
           error: e,
         });
       }
-
-      const data = req.body;
-      data["dietitianId"] = id;
-      data["userId"] = req.session?.user?.id;
-      const startTime = req.body.startTime.split(":");
-      data["endTime"] =
-        (parseInt(startTime[0]) + 1).toString() + ":" + startTime[1];
+      
+      // const data = req.body;
+      // data["dietitianId"] = id;
+      // data["userId"] = req.session?.user?.id;
+      // const startTime = req.body.startTime.split(":");
+      // data["endTime"] =
+      //   (parseInt(startTime[0]) + 1).toString() + ":" + startTime[1];
       try {
-        const result = await appointmentData.createAppointment(data);
-        if (result)
+        // const result = await appointmentData.createAppointment(data);
+        
+        if (true)
           return res.render("bookappointment", {
             title: "Appointment",
             header: `Appointment with ${dietitian.firstName} ${dietitian.lastName} has been booked sucessfully`,
@@ -484,6 +485,26 @@ dietitianrouter
 
   dietitianrouter.route("*").get(async (req, res) => {
   res.status(404).render("error", { title: "Page Not Found" });
+});
+
+dietitianrouter.route('/logout').get(async(req,res)=>{
+  const fitnessdata = await fitness();
+  let fitneslist = await fitnessdata.find({}).toArray();
+  const dietitiansdata = await dietitians();
+  let dietitianslist = await dietitiansdata.find({}).toArray();
+  const restaurantdata= await restaurants();
+  let restaurantlist = await restaurantdata.find({}).toArray();
+  console.log(req.session,'ss');
+  req.session.destroy((err) => {
+    if (err) {
+        console.log(err);
+    } else {
+        res.clearCookie('AuthCookie');
+
+        console.log(restaurantlist,'s')
+        res.render('landingpage',{title:'HomePage',header:'homepage',resdatalist:restaurantlist,dietitianslist:dietitianslist,fitnessatalist:fitneslist})
+    }
+});
 });
 
 export default dietitianrouter;

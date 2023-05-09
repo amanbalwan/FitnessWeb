@@ -1,4 +1,4 @@
-{{ main header="Page 1 Header"}}
+
 <header>
   <nav>
     <ul>
@@ -7,74 +7,21 @@
       <li><a href="/registeruser">Register User</a></li>
     </ul>
   </nav>
+  <h2>Transform Your Body, Transform Your Life</h2> <!-- Added fitness slogan -->
 </header>
 
-<style>
-  body {
-    font-family: Arial, sans-serif;
-  }
-  
-  h1, h2, h3, p {
-    margin: 0;
-    color: #663300;
-  }
-  
-  .column {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  
-  .list {
-    width: 48%;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .item {
-    margin: 20px 0;
-    padding: 20px;
-    background-color: #f7d9c1;
-    border-radius: 10px;
-  }
-  
-  .item a {
-    text-decoration: none;
-  }
-  
-  .item h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .item p {
-    font-size: 18px;
-    margin-bottom: 20px;
-  }
-  
-  .item img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;
-    border-radius: 5px;
-  }
-</style>
 
 
 
 
 <div class="column">
-
-
   <div class="list">
     <h1 class="title">Dietitian</h1>
     {{#if dietitianslist}}
       {{#each dietitianslist}}
         <li class="item">
           <a href="/dietitian/profile/{{_id}}">
-            <h3>{{firstName}}  {{lastName}}</h3>
+            <h3>{{firstName}} {{lastName}}</h3>
             <p>{{description}}</p>
             <p>Fees:{{fees}}</p>
             <p>City:{{city}}</p>
@@ -86,19 +33,16 @@
       <p>No Dietitian found.</p>
     {{/if}}
   </div>
-
-
   <div class="list">
     <h1 class="title">Restaurants</h1>
     {{#if resdatalist}}
       {{#each resdatalist}}
         <li class="item">
           <a href="/restaurant/restaurants/{{_id}}">
-            <h3>{{storeName}}</h3>
-            <p>{{description}}</p>
-            <p>{{storeAddress}}</p>
-            <p>{{storeZip}}</p>
-            
+            <h3>Store Name:{{storeName}}</h3>
+            <p>Description:{{description}}</p>
+            <p>Address:{{storeAddress}}</p>
+            <p>Zipcode:{{storeZip}}</p>
           </a>
         </li>
       {{/each}}
@@ -106,14 +50,13 @@
       <p>No Restaurant found.</p>
     {{/if}}
   </div>
-
   <div class="list">
     <h1 class="title">Fitness Centers</h1>
     {{#if fitnessatalist}}
       {{#each fitnessatalist}}
         <li class="item">
           <a href="/fitness/fitnessdetails/{{_id}}">
-            <h3>Name : {{name}}</h3>
+            <h3>Name: {{name}}</h3>
             <p>Address:{{address}}</p>
             <p>Zipcode:{{zipcode}}</p>
             <p>Activites: {{activites}}</p>

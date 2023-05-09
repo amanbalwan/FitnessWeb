@@ -11,13 +11,12 @@ const exportedMethods={
       if (req.session.user.role === 'User') {
         res.redirect(`/landingpage/homepage/${req.session.user.id}`);
       } else if (req.session.user.role === 'Rest') {
-        res.redirect('/profilerestaurant');
+        res.redirect('/restaurant/restaurantsLogin');
       } else if (req.session.user.role === 'Fitness') {
-        console.log('sd');
         res.redirect('/fitness/fitnessprofile');
       }
       else if (req.session.user.role === 'Diteiation') {
-        res.redirect('/profileDite');
+        res.redirect('/dietitian/profile');
       }
     } else {
       res.redirect('/landingpage');

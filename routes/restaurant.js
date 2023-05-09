@@ -8,7 +8,7 @@ const restaurantsrouter = Router();
 restaurantsrouter
   .route("/restaurantsLogin")
   .get(async (req, res) => {
-    res.render("restaurantsLogin", { title: "Restaurant Login", header: "Restaurant Login" });
+    res.render("restaurantsLogin", { title: "Login as Restaurant", header: "Login as Restaurant" });
   })
   .post(async (req, res) => {
     let storeEmail = req.body.storeEmailInput;
@@ -20,8 +20,8 @@ restaurantsrouter
       storePassword = validation.passwordValidation(storePassword);
     } catch (e) {
       res.status(400).render("restaurantsLogin", {
-        title: "Login",
-        header: "Login",
+        title: "Login as Restaurant",
+        header: "Login as Restaurant",
         storeEmailInput: storeEmail,
         storePasswordInput: storePassword,
         error: e,
@@ -50,8 +50,8 @@ restaurantsrouter
       }
     } catch (e) {
       return res.status(400).render("restaurantsLogin", {
-        title: "Login",
-        header: "Login",
+        title: "Login as Restaurant",
+        header: "Login as Restaurant",
         storeEmailInput: req.body.storeEmailInput,
         storePasswordInput: req.body.storePasswordInput,
         error: e,
@@ -66,7 +66,7 @@ restaurantsrouter
   restaurantsrouter
   .route("/restaurantsSignup")
   .get(async (req, res) => {
-    res.render("restaurantsSignup", { title: "Signup", header: "Signup" });
+    res.render("restaurantsSignup", { title: "Registration as Restaurant", header: "Registration as Restaurant" });
   })
   .post(async (req, res) => {
     let storeName = req.body.storeNameInput;
@@ -108,8 +108,8 @@ restaurantsrouter
       );
     } catch (e) {
       res.status(400).render("restaurantsSignup", {
-        title: "Signup",
-        header: "Signup",
+        title: "Registration as Restaurant",
+        header: "Registration as Restaurant",
         storeNameInput: storeName,
         storeAddressInput: storeAddress,
         storeZipInput: storeZip,
@@ -138,8 +138,8 @@ restaurantsrouter
       }
     } catch (e) {
       return res.status(400).render("restaurantsSignup", {
-        title: "Signup",
-        header: "Signup",
+        title: "Registration as Restaurant",
+        header: "Registration as Restaurant",
         storeNameInput: storeName,
         storeAddressInput: storeAddress,
         storeZipInput: storeZip,
@@ -345,6 +345,26 @@ restaurantsrouter.post("/logout", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+restaurantsrouter.route('/logout').get(async(req,res)=>{
+  const fitnessdata = await fitness();
+  let fitneslist = await fitnessdata.find({}).toArray();
+  const dietitiansdata = await dietitians();
+  let dietitianslist = await dietitiansdata.find({}).toArray();
+  const restaurantdata= await restaurants();
+  let restaurantlist = await restaurantdata.find({}).toArray();
+  console.log(req.session,'ss');
+  req.session.destroy((err) => {
+    if (err) {
+        console.log(err);
+    } else {
+        res.clearCookie('AuthCookie');
+
+        console.log(restaurantlist,'s')
+        res.render('landingpage',{title:'HomePage',header:'homepage',resdatalist:restaurantlist,dietitianslist:dietitianslist,fitnessatalist:fitneslist})
+    }
+});
 });
 
 export default restaurantsrouter;

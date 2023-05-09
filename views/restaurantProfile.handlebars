@@ -51,13 +51,11 @@
         {{/each}}
       </ul>
       <a href="/restaurant/restaurantProfile?editing=true">Edit</a><br />
+      <div>
+    <a href="/logout">Logout</a>
+  </div>
     {{/if}}
-    <form method="post" action="/delRestaurant">
-      <input type="submit" value="Delete" />
-    </form>
-    <form method="post" action="/logout">
-      <input type="submit" value="Logout" />
-    </form>
+
     {{#if error}}
       <p>Error: {{error}}</p>
     {{/if}}

@@ -162,7 +162,7 @@ const exportedMethods = {
     if (!fitnesInfo) throw `No dietitian found with id ${id}`;
 
     fitnesInfo._id = fitnesInfo._id.toString();
-    // console.log(fitnesInfo,'from db')
+    console.log(fitnesInfo,'from db')
     return fitnesInfo;
   },
   

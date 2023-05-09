@@ -13,7 +13,7 @@ fitnessrouter
   .get(async (req, res) => {
     //code here for GET
 
-    res.render("fitnesslogin", { title: "Fitness Login", header: "Login" });
+    res.render("fitnesslogin", { title: "Login as Fitness", header: "Login as Fitness" });
   })
   .post(async (req, res) => {
     //code here for POST
@@ -28,8 +28,8 @@ fitnessrouter
       
     } catch (e) {
       return res.status(400).render("fitnesslogin", {
-        title: "Fitness Login",
-        header: "Login",
+        title: "Login as Fitness",
+        header: "Login as Fitness",
         emailInput:emailAddress,
         passwordInput:password,
         error: e,
@@ -61,8 +61,8 @@ fitnessrouter
       }
     } catch (e) {
       return res.status(400).render("fitnesslogin", {
-        title: "Fitness Login",
-        header: "Fitness Login",
+        title: "Login as Fitness",
+        header: "Login as Fitness",
         emailInput:req.body.emailInput,
         passwordInput:req.body.passwordInput,
         error: e,
@@ -80,7 +80,7 @@ fitnessrouter
   .route('/fitnessRegister')
   .get(async (req, res) => {
     
-    res.render("fitnessregister", { title: "Fitness Registration", header: "Fitness Registration" });
+    res.render("fitnessregister", { title: "Registration as Fitness", header: "Registration as Fitness" });
   })
   .post(async (req, res) => {
     //code here for POST
@@ -121,8 +121,8 @@ fitnessrouter
     } catch (e) {
         
       return res.status(400).render("fitnessregister", {
-        title: "Fitness Registration",
-        header: "Fitness Registration",
+        title: "Registration as Fitness",
+        header: "Registration as Fitness",
         fitnesCenterName:fitnesCenterName,
         emailAddress:emailAddress,
         password:password,
@@ -145,8 +145,8 @@ fitnessrouter
       }
     } catch (e) {
         return res.status(400).render("fitnessregister", {
-            title: "Fitness Registration",
-            header: "Fitness Registration",
+            title: "Registration as Fitness",
+            header: "Registration as Fitness",
             fitnesCenterName:fitnesCenterName,
             emailAddress:emailAddress,
             password:password,
@@ -315,8 +315,8 @@ fitnessrouter
       const dietitian = await fitnessData.getFitnessById(id);
       
 
+      console.log(dietitian,'asds');
       let fitnesCenterName=dietitian.name;
-      
       let emailAddress=dietitian.emailAddress;
       let address=dietitian.address;
       let zipcode=dietitian.zipcode;
@@ -324,11 +324,6 @@ fitnessrouter
       let activites=dietitian.activites;
       let description=dietitian.description;
 
-
-      
-  
-      if (req.session?.user?.role === "User") bookappointment = true;
-  
       res.render("profilefitness", {
         title: "Profile",
         header: "Fitness Profile",
@@ -340,6 +335,7 @@ fitnessrouter
         activites:activites,
         description:description
       });
+      console.log('ssss')
     } catch (e) {
       console.log('2First error');
       return res.status(400).render("error", {
@@ -347,6 +343,25 @@ fitnessrouter
         error: e,
       });
     }
+  });
+  fitnessrouter.route('/logout').get(async(req,res)=>{
+    const fitnessdata = await fitness();
+    let fitneslist = await fitnessdata.find({}).toArray();
+    const dietitiansdata = await dietitians();
+    let dietitianslist = await dietitiansdata.find({}).toArray();
+    const restaurantdata= await restaurants();
+    let restaurantlist = await restaurantdata.find({}).toArray();
+    console.log(req.session,'ss');
+    req.session.destroy((err) => {
+      if (err) {
+          console.log(err);
+      } else {
+          res.clearCookie('AuthCookie');
+
+          console.log(restaurantlist,'s')
+          res.render('landingpage',{title:'HomePage',header:'homepage',resdatalist:restaurantlist,dietitianslist:dietitianslist,fitnessatalist:fitneslist})
+      }
+  });
   });
   
 

@@ -40,7 +40,13 @@ homerouter.route('/homepage/:id').get(async(req,res)=>{
       } else {
         bmiVal= "You are obese.";
       }
-    res.render('homepage',{title:'HomePage',header:'homepage',resdatalist:restdata,fitnessatalist:fitnessdata,userData:userdata,bmi:BMI,bmiVal:bmiVal})
+      const fitnessdata = await fitness();
+    let fitneslist = await fitnessdata.find({}).toArray();
+    const dietitiansdata = await dietitians();
+    let dietitianslist = await dietitiansdata.find({}).toArray();
+    const restaurantdata= await restaurants();
+    let restaurantlist = await restaurantdata.find({}).toArray();
+    res.render('homepage',{title:'HomePage',header:'homepage',resdatalist:restaurantlist,dietitianslist:dietitianslist,fitnessatalist:fitneslist,userData:userdata,bmi:BMI,bmiVal:bmiVal})
 });
 
 
