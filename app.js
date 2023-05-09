@@ -45,6 +45,7 @@ import middlewarefun from './middleware.js';
 // app.use(middlewarefun.logging);
 app.get('/',middlewarefun.authRedirect)
 
+
 // app.get('/logout', middlewarefun.logoutRoute);
   configRoutes(app);
 
