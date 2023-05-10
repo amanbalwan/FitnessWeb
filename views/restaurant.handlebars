@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>{{restaurant.storeName}}</h1>
+      <p>{{restaurant.storeDescription}}</p>
+      <h2>Menu:</h2>
+      <ul>
+        {{#each restaurant.storeMenu}}
+        <li>{{this.name}}: ${{this.price}}</li>
+        <p>Item Description: {{this.description}}</p>
+        {{/each}}
+      </ul>
+      <h2>Address:</h2>
+      <p>{{restaurant.storeAddress}},{{restaurant.storeZip}}</p>
+      <div>
+    <a href="/">Back to Homepage</a>
+  </div>
+    </div>
+  </div>
+</div>

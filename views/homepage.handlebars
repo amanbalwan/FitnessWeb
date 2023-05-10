@@ -1,12 +1,13 @@
-{{ main header="Page 1 Header"}}
 <header>
   <nav>
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/profileuser">Profile</a></li>
-      <li><a href="/logutuser">Logout</a></li>
+      <li><a href="/logout">Logout</a></li>
     </ul>
   </nav>
+  
+  <h2>Transform Your Body, Transform Your Life</h2> <!-- Added fitness slogan -->
 </header>
 
 
@@ -65,34 +66,43 @@
 
 
 <div class="user_health">
-    
-        {{#if userData}}
-            <p>Have data {{userData.firstName}}</p>
-            
-            <h2>Your BMI is {{bmi}}</h2>
-            <h3>{{bmiVal}}</h3>
-        {{else}}
-            <p>Not</p>
-        {{/if}}
-        
+  {{#if userData}}
+    <p>Welcome! {{userData.firstName}}</p>
+    <h2>Your BMI is {{bmi}}</h2>
+    <h3>{{bmiVal}}</h3>
+  {{else}}
+    <p>Not</p>
+  {{/if}}
 </div>
-
 <div class="column">
+  <div class="list">
+    <h1 class="title">Dietitian</h1>
+    {{#if dietitianslist}}
+      {{#each dietitianslist}}
+        <li class="item">
+          <a href="/dietitian/profile/{{_id}}">
+            <h3>{{firstName}} {{lastName}}</h3>
+            <p>{{description}}</p>
+            <p>Fees:{{fees}}</p>
+            <p>City:{{city}}</p>
+            <p>Zipcode:{{zipcode}}</p>
+          </a>
+        </li>
+      {{/each}}
+    {{else}}
+      <p>No Dietitian found.</p>
+    {{/if}}
+  </div>
   <div class="list">
     <h1 class="title">Restaurants</h1>
     {{#if resdatalist}}
       {{#each resdatalist}}
         <li class="item">
-          <a href="/restaurantdetails/{{id}}">
-            <h3>{{name}}</h3>
-            <p>{{description}}</p>
-            {{#if image}}
-              {{#each image}}
-                <img class="image" src={{image}} alt="{{name}}">
-              {{/each}}
-            {{else}}
-              <img class="image" src="../public/image/No_Image_Available.jpg" alt="No Image">
-            {{/if}}
+          <a href="/restaurant/restaurants/{{_id}}">
+            <h3>Store Name:{{storeName}}</h3>
+            
+            <p>Address:{{storeAddress}}</p>
+            <p>Zipcode:{{storeZip}}</p>
           </a>
         </li>
       {{/each}}
@@ -100,22 +110,16 @@
       <p>No Restaurant found.</p>
     {{/if}}
   </div>
-
   <div class="list">
     <h1 class="title">Fitness Centers</h1>
     {{#if fitnessatalist}}
       {{#each fitnessatalist}}
         <li class="item">
-          <a href="/fitnesdetails/{{id}}">
-            <h3>{{name}}</h3>
-            <p>{{description}}</p>
-            {{#if images}}
-              {{#each images}}
-                <img class="image" src={{url}} alt="{{name}}">
-              {{/each}}
-            {{else}}
-              <img class="image" src="../public/image/No_Image_Available.jpg" alt="No Image">
-            {{/if}}
+          <a href="/fitness/fitnessdetails/{{_id}}">
+            <h3>Name: {{name}}</h3>
+            <p>Address:{{address}}</p>
+            <p>Zipcode:{{zipcode}}</p>
+            <p>Activites: {{activites}}</p>
           </a>
         </li>
       {{/each}}
@@ -140,4 +144,3 @@
     {{/if}}
   </div>
 </div>
-

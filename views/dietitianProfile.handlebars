@@ -9,7 +9,6 @@
   <p>City : {{city}}</p>
   <p>State : {{state}}</p>
   <p>Zip Code: {{zipCode}}</p>
-  <p>Verified: {{verified}}</p>
   {{#if edit}}
     <div id="edit-section">
       <div>
@@ -30,8 +29,16 @@
         >
           <button type="submit" id="delete_btn">Delete Account</button>
         </form>
+        
+        
+         <a href="/logout"> <button type="submit" id="delete_btn">Logout</button></a>
+        
       </div>
     </div>
+    {{else}}
+    <div>
+    <a href="/">Back to Homepage</a>
+  </div>
   {{/if}}
   {{#if bookappointment}}
     <form
@@ -42,7 +49,5 @@
       <button type="submit" id="edit_btn">Book Appointment</button>
     </form>
   {{/if}}
-  <div>
-    <a href="/">Back to Homepage</a>
-  </div>
+
 </div>

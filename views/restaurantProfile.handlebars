@@ -1,0 +1,64 @@
+<!-- views/restaurantProfile.handlebars -->
+
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    
+  </head>
+  <body>
+    
+    {{#if editing}}
+      <form method="POST" action="/restaurant/restaurantProfile">
+        <label for="storeName">Store Name:</label>
+        <input type="text" name="storeName" value="{{storeName}}" /><br />
+        <label for="storeAddress">Store Address:</label>
+        <input type="text" name="storeAddress" value="{{storeAddress}}" /><br />
+        <label for="storeZip">Store Zip:</label>
+        <input type="text" name="storeZip" value="{{storeZip}}" /><br />
+        <label for="storeDescription">Store Description:</label>
+        <textarea name="storeDescription">{{storeDescription}}</textarea><br />
+        <label for="storeMenu">Store Menu:</label>
+        {{#each storeMenu}}
+          <input
+            type="text"
+            name="storeMenu[{{@index}}].name"
+            value="{{this.name}}"
+          /><br />
+          <input
+            type="text"
+            name="storeMenu[{{@index}}].price"
+            value="{{this.price}}"
+          /><br />
+          <textarea
+            type="text"
+            name="storeMenu[{{@index}}].description"
+          >{{this.description}}</textarea>
+        {{/each}}
+        
+        <input type="submit" value="Save" />
+      </form>
+    {{else}}
+      <p>Store Name: {{storeName}}</p>
+      <p>Store Address: {{storeAddress}}</p>
+      <p>Store Zip: {{storeZip}}</p>
+      <p>Store Description: {{storeDescription}}</p>
+      <p>Store Menu:</p>
+      <ul>
+        {{#each storeMenu}}
+          <li>{{this.name}}:  ${{this.price}}</li>
+          <p>Item Description : {{this.description}}</p>
+        {{/each}}
+      </ul>
+      <a href="/restaurant/restaurantProfile?editing=true">Edit</a><br />
+      <div>
+    <a href="/logout">Logout</a>
+  </div>
+    {{/if}}
+
+    {{#if error}}
+      <p>Error: {{error}}</p>
+    {{/if}}
+    
+  </body>
+</html>

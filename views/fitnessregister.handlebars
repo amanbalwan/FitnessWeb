@@ -31,8 +31,8 @@ registration handelbars
   <input type="text" id="zipcode" name="zipcode" value="{{zipcode}}" />
   <br/>
   <label for="activites">Activites:</label>
-  <input type="text" id="activites" name="activites" value="{{activities}}" />
-  <br/>
+  <input type="text" id="activites" name="activites" value="{{activites}}" />
+  
   <br />
     <div class="form-group" id="error-container">
         <div class="alert alert-danger text-goes-here">
@@ -45,7 +45,7 @@ registration handelbars
   
 </form>
 
-<a href="/fitness" id="a_for_login">Already have an account? Click here to log-in</a>
+<a href="/fitness/login" id="a_for_login">Already have an account? Click here to log-in</a>
 {{#if error}}
 <p class="error">{{{error}}}</p>
 {{/if}}

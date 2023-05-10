@@ -1,4 +1,5 @@
 //import mongo collections, bcrypt and implement the following data functions
+import { ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
 const saltRounds = 15;
 import { fitness } from "../config/mongoCollections.js";
@@ -21,6 +22,7 @@ const exportedMethods = {
     zipcode=validation.zipCodeValidation(zipcode);
     phoneNumber=validation.phoneNumberValidation(phoneNumber);
     activites=validation.stringValidation(activites);
+    
     
     
     
@@ -52,6 +54,7 @@ const exportedMethods = {
       role:'Fitness',
       password: await bcrypt.hash(password, saltRounds),
       activites:activites,
+      
       ratings:0,
     };
 
@@ -68,6 +71,7 @@ const exportedMethods = {
     address=validation.stringValidation(address,'Address line 1');
     zipcode=validation.zipCodeValidation(zipcode);
     activites=validation.stringValidation(activites,"Activities")
+
     
     const updatedMember = {
 
@@ -75,6 +79,7 @@ const exportedMethods = {
       address:address,
       zipcode:zipcode,
       activites:activites,
+
     };
 
     
@@ -144,6 +149,24 @@ const exportedMethods = {
       throw `Could not delete dog with id of ${id}`;
     }
     return `${deletionInfo.value.name} has been successfully deleted!`;
-  }
+  },
+
+  async getFitnessById(id){
+    id = validation.idValidation(id, "Id");
+    
+    const fitnessCollection = await fitness();
+    const fitnesInfo = await fitnessCollection.findOne({
+      _id: new ObjectId(id)
+    });
+    // console.log(fitnesInfo,)
+    if (!fitnesInfo) throw `No dietitian found with id ${id}`;
+
+    fitnesInfo._id = fitnesInfo._id.toString();
+    console.log(fitnesInfo,'from db')
+    return fitnesInfo;
+  },
+  
+
+  
 };
 export default exportedMethods;
