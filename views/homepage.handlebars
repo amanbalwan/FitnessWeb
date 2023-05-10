@@ -9,6 +9,62 @@
   
   <h2>Transform Your Body, Transform Your Life</h2> <!-- Added fitness slogan -->
 </header>
+
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  h1, h2, h3, p {
+    margin: 0;
+    color: #663300;
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .list {
+    width: 48%;
+    list-style: none;
+    margin: 25px;
+    padding: 0;
+  }
+  
+  .item {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f7d9c1;
+    border-radius: 10px;
+  }
+  
+  .item a {
+    text-decoration: none;
+  }
+  
+  .item h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .item p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .item img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 5px;
+  }
+</style>
+
+
 <div class="user_health">
   {{#if userData}}
     <p>Welcome! {{userData.firstName}}</p>
@@ -69,6 +125,22 @@
       {{/each}}
     {{else}}
       <p>No Fitness found.</p>
+    {{/if}}
+  </div>
+
+   <div class="list">
+    <h1 class="title">Dietitians</h1>
+    {{#if dietitiansList}}
+      {{#each dietitiansList}}
+        <li class="item">
+          <a href="/dietitian/profile/{{_id}}">
+            <h3>{{firstName}} {{lastName}}</h3>
+            <p>{{description}}</p>
+          </a>
+        </li>
+      {{/each}}
+    {{else}}
+      <p>No Dietitians found.</p>
     {{/if}}
   </div>
 </div>

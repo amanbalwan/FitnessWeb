@@ -2,13 +2,13 @@ import { Router } from "express";
 import validation from "../helpers.js";
 import appointmentData from "../data/appointments.js";
 import dietitianData from "../data/dietitians.js";
-const dietitianrouter = Router();
+const router = Router();
 
-dietitianrouter
+router
   .route("/login")
   .get(async (req, res) => {
     return res.render("dietitianLogin", {
-      title: "Login as Dietitian",
+      title: "Login",
       header: "Login as Dietitian",
     });
   })
@@ -23,7 +23,7 @@ dietitianrouter
       password = validation.passwordValidation(password);
     } catch (e) {
       return res.status(400).render("dietitianLogin", {
-        title: "Login as Dietitian",
+        title: "Login",
         header: "Login as Dietitian",
         emailInput: emailAddress,
         passwordInput: password,
@@ -54,13 +54,13 @@ dietitianrouter
           verified: dietitian.verified
         };
 
-        res.redirect("/dietitian/profile");
+        res.redirect("/");
       } else {
         throw `Either email address or password is invalid`;
       }
     } catch (e) {
       return res.status(400).render("dietitianLogin", {
-        title: "Login as Dietitian",
+        title: "Login",
         header: "Login as Dietitian",
         emailInput: req.body.emailInput,
         passwordInput: req.body.passwordInput,
@@ -75,11 +75,11 @@ dietitianrouter
     });
   });
 
-  dietitianrouter
+router
   .route("/register")
   .get(async (req, res) => {
     return res.render("dietitianRegister", {
-      title: "Register as Dietitian",
+      title: "Register",
       header: "Register as Dietitian",
     });
   })
@@ -121,7 +121,7 @@ dietitianrouter
       fees = validation.checkNumber(fees, "Fees");
     } catch (e) {
       return res.status(400).render("dietitianRegister", {
-        title: "Register as Dietitian",
+        title: "Register",
         header: "Register as Dietitian",
         firstNameInput: firstName,
         lastNameInput: lastName,
@@ -159,7 +159,7 @@ dietitianrouter
       }
     } catch (e) {
       return res.status(400).render("dietitianRegister", {
-        title: "Register as Dietitian",
+        title: "Register",
         header: "Register as Dietitian",
         firstNameInput: firstName,
         lastNameInput: lastName,
@@ -184,7 +184,7 @@ dietitianrouter
     });
   });
 
-  dietitianrouter.route("/profile").get(async (req, res) => {
+router.route("/profile").get(async (req, res) => {
   if (req.session?.user?.role === "Dietitian") {
     let firstName = req.session.user.firstName;
     let lastName = req.session.user.lastName;
@@ -219,7 +219,7 @@ dietitianrouter
   }
 });
 
-dietitianrouter
+router
   .route("/profile/edit")
   .get(async (req, res) => {
     if (req.session?.user?.role === "Dietitian") {
@@ -340,7 +340,7 @@ dietitianrouter
     });
   });
 
-  dietitianrouter.route("/profile/delete").get(async (req, res) => {
+  router.route("/profile/delete").get(async (req, res) => {
     if (req.session?.user?.role === "Dietitian") {
       const id = req.session.user.id;
       try {
@@ -366,7 +366,7 @@ dietitianrouter
     });
   });
 
-  dietitianrouter.route("/profile/:id").get(async (req, res) => {
+router.route("/profile/:id").get(async (req, res) => {
   let id = req.params.id;
   try{
     id = validation.idValidation(id,"ID")
@@ -419,7 +419,7 @@ dietitianrouter
 
 
 
-dietitianrouter
+router
   .route("/bookappointment/:id")
   .get(async (req, res) => {
     if (req.session?.user?.role === "User") {
@@ -445,28 +445,27 @@ dietitianrouter
     if (req.session?.user?.role === "User") {
       const id = req.params.id;
       let dietitian;
-      
+
       try {
         dietitian = await dietitianData.getDietitianById(id);
-        // if (!dietitian.verified)
-        //   throw "You cannot book appointment for this dietitian";
+        if (!dietitian.verified)
+          throw "You cannot book appointment for this dietitian";
       } catch (e) {
         return res.status(400).render("error", {
           title: "Error",
           error: e,
         });
       }
-      
-      // const data = req.body;
-      // data["dietitianId"] = id;
-      // data["userId"] = req.session?.user?.id;
-      // const startTime = req.body.startTime.split(":");
-      // data["endTime"] =
-      //   (parseInt(startTime[0]) + 1).toString() + ":" + startTime[1];
+
+      const data = req.body;
+      data["dietitianId"] = id;
+      data["userId"] = req.session?.user?.id;
+      const startTime = req.body.startTime.split(":");
+      data["endTime"] =
+        (parseInt(startTime[0]) + 1).toString() + ":" + startTime[1];
       try {
-        // const result = await appointmentData.createAppointment(data);
-        console.log('sds');
-        if (true)
+        const result = await appointmentData.createAppointment(data);
+        if (result)
           return res.render("bookappointment", {
             title: "Appointment",
             header: `Appointment with ${dietitian.firstName} ${dietitian.lastName} has been booked sucessfully`,
@@ -483,28 +482,8 @@ dietitianrouter
     }
   });
 
-  dietitianrouter.route("*").get(async (req, res) => {
+router.route("*").get(async (req, res) => {
   res.status(404).render("error", { title: "Page Not Found" });
 });
 
-dietitianrouter.route('/logout').get(async(req,res)=>{
-  const fitnessdata = await fitness();
-  let fitneslist = await fitnessdata.find({}).toArray();
-  const dietitiansdata = await dietitians();
-  let dietitianslist = await dietitiansdata.find({}).toArray();
-  const restaurantdata= await restaurants();
-  let restaurantlist = await restaurantdata.find({}).toArray();
-  console.log(req.session,'ss');
-  req.session.destroy((err) => {
-    if (err) {
-        console.log(err);
-    } else {
-        res.clearCookie('AuthCookie');
-
-        console.log(restaurantlist,'s')
-        res.render('landingpage',{title:'HomePage',header:'homepage',resdatalist:restaurantlist,dietitianslist:dietitianslist,fitnessatalist:fitneslist})
-    }
-});
-});
-
-export default dietitianrouter;
+export default router;

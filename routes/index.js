@@ -2,7 +2,7 @@ import route from "./user_routes.js";
 import homerouter from "./homepage.js"
 import restaurantsrouter from "./restaurant.js";
 import fitnessrouter from "./fitness.js";
-import dietitianrouter from "./dietitian.js";
+import dietitianrouter from "./dietitians.js";
 
 
 

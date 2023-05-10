@@ -31,7 +31,7 @@ import validation from "../helpers.js";
     dietitianId,
     date,
     startTime,
-    // endTime,
+    endTime,
     weightType,
   }) => {
     if (
@@ -39,11 +39,11 @@ import validation from "../helpers.js";
       !dietitianId ||
       !date ||
       !startTime ||
-      // !endTime ||
+      !endTime ||
       !weightType
     )
       throw "All Fields need to have valid values";
-console.log('Db')
+
     userId = validation.idValidation(userId, "User Id");
     dietitianId = validation.idValidation(dietitianId, "Dietitian Id");
     date = validation.checkDate(date, "Appointment Date");
@@ -78,7 +78,7 @@ console.log('Db')
       date,
       startTime,
       weightType,
-      // endTime,
+      endTime,
     };
     const appointmentCollection = await appointments();
     const insertInfo = await appointmentCollection.insertOne(newAppointment);
