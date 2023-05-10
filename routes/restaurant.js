@@ -13,7 +13,6 @@ restaurantsrouter
   .post(async (req, res) => {
     let storeEmail = req.body.storeEmailInput;
     let storePassword = req.body.storePasswordInput;
-    console.log('Hey ag')
     try {
       // storeEmail = validation.stringValidation(storeEmail, "Email Address");
       // storeEmail = req.body.storeEmailInput.toLowerCase();
@@ -155,11 +154,6 @@ restaurantsrouter
       });
     }
 
-    // res.status(500).render("error", {
-    //   title: "Error 500",
-    //   header: "Error 500",
-    //   error: "Internal Server Error",
-    // });
   });
 
   restaurantsrouter
@@ -171,7 +165,6 @@ restaurantsrouter
     let storeDescription = req.session.restaurant_owner2.storeDescription;
     let storeMenu = req.session.restaurant_owner2.storeMenu;
     let storeEmail = req.session.restaurant_owner2.storeEmail;
-    // console.log(req.query.editing);
 
     if (req.query && req.query.editing) {
       console.log("Editing query is set to", req.query.editing);
@@ -210,7 +203,6 @@ restaurantsrouter
     // let storeMenu = req.session.restaurant_owner2.storeMenu;
     let storeEmail = req.session.restaurant_owner2.storeEmail;
     let storeMenu = [];
-    console.log("Before Updating", req.session.restaurant_owner2.storeMenu);
 
     for (let i = 0; i < req.body.storeMenu.length; i += 3) {
       const name = req.body.storeMenu[i];
@@ -218,8 +210,6 @@ restaurantsrouter
       const description = req.body.storeMenu[i + 2];
       storeMenu.push({ name, price, description });
     }
-
-    console.log("After Updating", storeMenu);
 
     try {
       storeName = validation.nameValid(storeName, "Restaurant Name");

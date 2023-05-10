@@ -12,7 +12,6 @@ const exportMethods = {
         storeAddress = validation.addressValidation(storeAddress);
         storeZip = validation.zipCodeValidation(storeZip);
         storeDescription = validation.stringValidation(storeDescription, "Store Description");
-        // storeImage = storeImage.imageValidation(storeImage, "Store Image");
         storeMenu = validation.menuValidation(storeMenu);
         storeEmail = validation.emailValidation(storeEmail);
         storePassword = validation.passwordValidation(storePassword);
@@ -37,11 +36,10 @@ const exportMethods = {
             storeMenu: storeMenu,
             storeEmail: storeEmail,
             storePassword: await bcrypt.hash(storePassword, saltRounds),
-            // storeConfirmPassword: storeConfirmPassword
         };
 
 
-        // const restaurantsDB = await restaurants();
+
         const insertInfo = await restaurantCollection.insertOne(newRestaurant);
 
         if (!insertInfo.insertedId || !insertInfo.acknowledged)
